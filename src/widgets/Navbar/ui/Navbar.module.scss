@@ -3,18 +3,12 @@
     height: var(--navbar-height);
     background: var(--inverted-bg-color);
     display: flex;
-    align-items: center;
-    padding: 20px;
+    justify-content: center;
 }
 
-.mainLink {
-    margin-right: 15px;
-}
+.mainLink {}
 
 .links {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    background: gray;
+    width: 70%;
 }
