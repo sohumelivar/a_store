@@ -3,7 +3,7 @@ import { useTheme } from "app/providers/ThemeProvider";
 import { classNames } from "shared/lib/classNames/classNames";
 import { AppRouter } from "./providers/router";
 import { Navbar } from "widgets/Navbar";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { ThemeSwitcher } from "widgets/ThemeSwitcher";
 import { LangSwitcher } from "widgets/LangSwitcher/LangSwitcher";
 
