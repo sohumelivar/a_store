@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CounterState } from '../types/CounterSchema';
+import { CounterState } from '../types/counter';
 
 const initialState: CounterState = {
     value: 0
