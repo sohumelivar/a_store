@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { logout } from 'entities/User';
 import { NavbarItemsList } from 'widgets/Navbar/model/items';
 import { NavbarItem } from '../NavbarItem/NavbarItem';
+import { AppLink } from 'shared/ui/AppLink/AppLink';
 
 interface NavbarProps {
    className?: string;
@@ -39,27 +40,15 @@ export const Navbar = memo(({className}: NavbarProps) => {
         <div className={cls.links}>
           {NavbarItemsList.map((item) => (
             <NavbarItem 
-              key={item.path}
-              item={item}  
+              key={item.text}
+              item={item}
             />
           ))}
             {user ? 
-            <Button 
-              onClick={onLogout}
-              className={cls.mainLink}
-              theme={ThemeButton.CLEAR}
-            >
-              {t('Выйти')}
-            </Button> 
-            
+            <AppLink to='/' onClick={onLogout} className={cls.mainLink}>{t('Выйти')}</AppLink>
             : 
-            <Button 
-              onClick={onShowModal} 
-              theme={ThemeButton.CLEAR} 
-              className={cls.mainLink}
-            >
-              {t('Войти')}
-            </Button>}
+            <AppLink to='/' onClick={onShowModal} className={cls.mainLink}>{t('Войти')}</AppLink>
+            }
         </div>
             {!user && 
               <LoginModal 

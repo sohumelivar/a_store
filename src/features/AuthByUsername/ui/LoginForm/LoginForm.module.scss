@@ -2,13 +2,28 @@
     display: flex;
     flex-direction: column;
     width: 400px;
+    background: blue;
+    min-height: 170px;
 }
 
 .input {
     margin-top: 10px;
+    background: red;
+    text-align: center;
+}
+
+.formText {
+    text-align: center;
+}
+
+.buttonWrapper {
+    display: flex;
+    background: green;
+    justify-content: center;
 }
 
 .loginBtn {
-    margin-top: 15px;
-    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100px;
 }

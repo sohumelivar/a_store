@@ -33,13 +33,12 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
     }, [dispatch]);
 
     const onLoginClick = useCallback(() => {
-      dispatch(loginByUsername({username, password}))      
+      dispatch(loginByUsername({username, password}));
     }, [dispatch, username, password]);
 
     return (
       <div className={classNames(cls.LoginForm, {}, [className])}>
-        <Text title={t('Форма авторизации')} /> 
-        {error && <Text text={error} theme={TextTheme.ERROR} />}
+        <Text className={cls.formText} title={t('Форма авторизации')} /> 
         <Input 
           type="text" 
           className={cls.input} 
@@ -54,14 +53,16 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
           onChange={onChangePassword} 
           value={password}
         />
-        <Button
-            className={cls.loginBtn}
-            onClick={onLoginClick}
-            disabled={isLoading}
-        >
-            {t('Войти')}
-        </Button>
-        <Text  text='test' theme={TextTheme.PRIMARY} />
+        <div className={cls.buttonWrapper} >
+          <Button
+              className={cls.loginBtn}
+              onClick={onLoginClick}
+              disabled={isLoading}
+          >
+              {t('Войти')}
+          </Button>
+        </div>
+        {error && <Text className={cls.formText} text={error} theme={TextTheme.ERROR} />}
       </div>
     )
 });

@@ -22,8 +22,6 @@ const App = () => {
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback="">
                 <Navbar />
-                <ThemeSwitcher />
-                <LangSwitcher />
                 <AppRouter />
             </Suspense>
         </div>
