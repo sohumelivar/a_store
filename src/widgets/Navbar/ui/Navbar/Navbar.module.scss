@@ -1,14 +1,25 @@
 .Navbar {
     width: 100%;
     height: var(--navbar-height);
-    background: var(--inverted-bg-color);
+    background: var(--main-header);
     display: flex;
     justify-content: center;
 }
 
-.mainLink {}
+.mainLink {
+    width: 130px;
+    text-align: center;
+}
+
+.mainLink:hover {
+    color: aqua;
+}
 
 .links {
-    background: gray;
-    width: 70%;
+    background-color: --main-header;
+    background-color: rgb(169, 35, 35);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,14 +1,20 @@
-import { memo } from "react";
-import { useTranslation } from "react-i18next";
+import {classNames} from 'shared/lib/classNames/classNames';
+import cls from './MainPage.module.scss';
+import { useTranslation } from 'react-i18next';
+import { ItemCard } from 'widgets/ItemCard';
 
-const MainPage = memo(() => {
-    const {t} = useTranslation();
+interface MainPageProps {
+   className?: string;
+};
+
+const MainPage = ({className}: MainPageProps) => {
+    const { t } = useTranslation();
 
     return (
-        <div>
-           {t('Главная страница')}
-        </div>
+      <div className={classNames(cls.MainPage, {}, [className])}>
+            <ItemCard itemInfo={{itemName: 'sas', price: 200}}/>
+      </div>
     )
-});
+};
 
 export default MainPage;
