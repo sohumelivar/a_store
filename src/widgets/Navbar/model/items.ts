@@ -15,6 +15,7 @@ export const NavbarItemsList: NavbarItemType[] = [
         text: 'Избранное'
     },
     {
+        path: RoutePath.test,
         text: 'Объявления +'
     },
     {
