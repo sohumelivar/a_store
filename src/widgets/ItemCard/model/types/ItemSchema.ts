@@ -1,6 +1,9 @@
 export interface ItemSchema {
+    id: number;
     photo?: string;
-    itemName: string;
+    itemName?: string;
     description?: string;
-    price: number;
+    price?: number;
+    category?: string;
+    onEdit?: boolean;
 }
