@@ -34,36 +34,45 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
 
     const onLoginClick = useCallback(() => {
       dispatch(loginByUsername({username, password}));
-    }, [dispatch, username, password]);
+    }, [dispatch, username, password])
+
+    const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Предотвратить действие по умолчанию
+        onLoginClick();
+      }
+    }, [onLoginClick]);
 
     return (
-      <div className={classNames(cls.LoginForm, {}, [className])}>
-        <Text className={cls.formText} title={t('Форма авторизации')} /> 
-        <Input 
-          type="text" 
-          className={cls.input} 
-          placeholder='...enter username'
-          onChange={onChangeUsername}
-          value={username} 
-        />
-        <Input 
-          type="text" 
-          className={cls.input} 
-          placeholder='...enter password'
-          onChange={onChangePassword} 
-          value={password}
-        />
-        <div className={cls.buttonWrapper} >
-          <Button
-              className={cls.loginBtn}
-              onClick={onLoginClick}
-              disabled={isLoading}
-          >
-              {t('Войти')}
-          </Button>
+        <div className={classNames(cls.LoginForm, {}, [className])}>
+          <Text className={cls.formText} title={t('Форма авторизации')} /> 
+          <Input 
+            onKeyDown={handleKeyDown}
+            type="text" 
+            className={cls.input} 
+            placeholder='...enter username'
+            onChange={onChangeUsername}
+            value={username} 
+          />
+          <Input 
+            onKeyDown={handleKeyDown}
+            type="text" 
+            className={cls.input} 
+            placeholder='...enter password'
+            onChange={onChangePassword} 
+            value={password}
+          />
+          <div className={cls.buttonWrapper} >
+            <Button
+                className={cls.loginBtn}
+                onClick={onLoginClick}
+                disabled={isLoading}
+            >
+                {t('Войти')}
+            </Button>
+          </div>
+          {error && <Text className={cls.formText} text={error} theme={TextTheme.ERROR} />}
         </div>
-        {error && <Text className={cls.formText} text={error} theme={TextTheme.ERROR} />}
-      </div>
     )
 });
 

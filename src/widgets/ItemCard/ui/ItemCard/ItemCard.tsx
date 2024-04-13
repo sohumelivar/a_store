@@ -1,6 +1,8 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './ItemCard.module.scss';
 import { ItemSchema } from 'widgets/ItemCard/model/types/ItemSchema';
+import { ImageBlock } from 'shared/ui/ImageBlock/ImageBlock';
+import { ItemDescription } from '../ItemDescription/ItemDescription';
 
 interface ItemCardProps {
    className?: string;
@@ -11,8 +13,8 @@ const ItemCard = ({className, itemInfo}: ItemCardProps) => {
 
     return (
       <div className={classNames(cls.ItemCard, {}, [className])}>
-        <div className={cls.photoItem}>{itemInfo.itemName}</div>
-        <div className={cls.descriptionWrapper} >{itemInfo.description}</div>
+        <ImageBlock images={itemInfo.photo} />
+        < ItemDescription itemInfo={itemInfo} />
       </div>
     )
 };

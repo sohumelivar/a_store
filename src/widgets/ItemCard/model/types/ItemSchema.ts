@@ -1,6 +1,6 @@
 export interface ItemSchema {
     id: number;
-    photo?: string;
+    photo?: string[];
     itemName?: string;
     description?: string;
     price?: number;
