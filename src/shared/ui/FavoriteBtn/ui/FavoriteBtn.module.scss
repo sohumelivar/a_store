@@ -1,0 +1,9 @@
+.FavoriteBtn {
+    cursor: pointer;
+    font-size: 24px; 
+    transition: color 0.3s;
+}
+
+.active {
+    color: red; 
+}

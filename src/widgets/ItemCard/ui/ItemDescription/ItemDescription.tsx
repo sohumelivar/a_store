@@ -2,6 +2,7 @@ import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './ItemDescription.module.scss';
 import { useTranslation } from 'react-i18next';
 import { ItemSchema } from 'widgets/ItemCard/model/types/ItemSchema';
+import { FavoriteBtn } from 'shared/ui/FavoriteBtn/ui/FavoriteBtn';
 
 interface ItemDescriptionProps {
    className?: string;
@@ -12,12 +13,16 @@ export const ItemDescription = ({className, itemInfo}: ItemDescriptionProps) => 
     const { t } = useTranslation();
 
     return (
-        <div className={classNames(cls.descriptionWrapper, {}, [className])} >
-            <div className={cls.s} >{itemInfo.itemName}</div>
-            <div className={cls.s} >{itemInfo.price}</div>
-            <div className={cls.d} >{'Сегодня 18:01'}</div>
-            <div className={cls.d} >{'Jack'}</div>
+      <div className={classNames(cls.descriptionBlock, {}, [className])} >
+        <div className={cls.descriptionWrapper} >
+            <div className={cls.itemName} >{itemInfo.itemName}</div>
+            <div className={cls.itemPrice} >{itemInfo.price}</div>
+            <div className={cls.itemTime} >{'Сегодня 18:01'}</div>
+            <div className={cls.itemUserName} >{'Jack'}</div>
+        </div>
+        <div className={cls.favoritesWrapper} >
+          <FavoriteBtn />
+        </div>
       </div>
     )
 };
-

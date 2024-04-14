@@ -2,13 +2,13 @@ import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './LoginForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'shared/ui/Buton/Button';
-import { Input } from 'shared/ui/Input/Input';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback } from 'react';
 import { setUsername, setPassword } from 'features/AuthByUsername';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
+import { Input } from 'shared/ui/input/Input';
 
 
 interface LoginFormProps {

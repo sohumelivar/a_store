@@ -1,5 +1,37 @@
-.descriptionWrapper {
+.descriptionBlock {
+    display: flex;
     width: 100%;
     height: 50%;
-    background: rgb(212, 179, 141);
+    background: rgb(18, 19, 17);
+}
+
+.itemName {
+    background: rgb(106, 185, 137);
+}
+
+.itemPrice {
+    background: rgb(73, 76, 143);
+    
+}
+
+.itemTime {
+    background: rgb(200, 52, 87);
+}
+
+.itemUserName {
+    background: rgb(220, 237, 37);
+}
+
+.descriptionWrapper {
+    width: 80%;
+}
+
+.favoritesWrapper {
+    background: rgb(9, 101, 240);
+    width: 20%;
+    display: flex;
+    justify-content: center; /* Центрирование содержимого по горизонтали */
+    align-items: flex-start; /* Выравнивание содержимого по верхней границе */
+    padding-top: 5px; /* Отступ сверху на 5px */
+    height: 100%; /* Задаётся высота, если это необходимо */
 }

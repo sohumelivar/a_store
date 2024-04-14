@@ -1,6 +1,5 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './ItemsWrapper.module.scss';
-import { ReactNode } from 'react';
 import ItemCard from '../ItemCard/ItemCard';
 import { ItemSchema } from 'widgets/ItemCard';
 
