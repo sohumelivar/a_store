@@ -1,0 +1,12 @@
+.ItemCard {
+    background: pink;
+    max-width: 200px;
+    flex: 1 0 20%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    flex-direction: column;
+    cursor: pointer;
+}

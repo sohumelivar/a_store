@@ -1,5 +1,7 @@
-import { ItemCardAsync as ItemCard } from "./ui/ItemCardAsync";
+import { ItemCardAsync as ItemCard } from "./ui/ItemCard/ItemCardAsync";
+import { ItemsWrapper } from "./ui/ItemsWrapper/ItemsWrapper";
 
 export {
     ItemCard,
+    ItemsWrapper,
 }
