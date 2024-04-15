@@ -1,8 +1,8 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './ItemDescription.module.scss';
 import { useTranslation } from 'react-i18next';
-import { ItemSchema } from 'widgets/ItemCard/model/types/ItemSchema';
 import { FavoriteBtn } from 'shared/ui/FavoriteBtn/ui/FavoriteBtn';
+import { ItemSchema } from 'entities/Items';
 
 interface ItemDescriptionProps {
    className?: string;

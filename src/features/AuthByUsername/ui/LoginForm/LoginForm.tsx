@@ -8,7 +8,7 @@ import { memo, useCallback } from 'react';
 import { setUsername, setPassword } from 'features/AuthByUsername';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
-import { Input } from 'shared/ui/input/Input';
+import { Input } from 'shared/ui/Input/Input';
 
 
 interface LoginFormProps {
@@ -19,10 +19,6 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
     const { t } = useTranslation();
     const dispatch: AppDispatch = useDispatch();
     const { username, password, isLoading, error } = useSelector((state: RootState) => state.loginForm);
-    console.log('⚛ --- ⚛ --- ⚛ --- ⚛ ---  >>> ☢ LoginForm ☢ error:', error)
-
-    console.log('⚛ --- ⚛ --- ⚛ --- ⚛ ---  >>> ☢ LoginForm ☢ isLoading:', isLoading)
-
 
     const onChangeUsername = useCallback((value: string) => {
       dispatch(setUsername(value))
@@ -38,7 +34,7 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
 
     const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
-        event.preventDefault(); // Предотвратить действие по умолчанию
+        event.preventDefault();
         onLoginClick();
       }
     }, [onLoginClick]);

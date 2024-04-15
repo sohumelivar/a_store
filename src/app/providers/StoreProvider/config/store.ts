@@ -4,6 +4,7 @@ import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
 import { loginReducer } from 'features/AuthByUsername';
 import { profileReducer } from 'entities/Profile';
+import { itemReducer, itemsReducer } from 'entities/Items';
 
 export const store = configureStore<StateSchema>({
     reducer: {
@@ -11,6 +12,8 @@ export const store = configureStore<StateSchema>({
         user: userReducer,
         loginForm: loginReducer,
         profile: profileReducer,
+        items: itemsReducer,
+        item: itemReducer,
     },
     devTools: __IS_DEV__,
 });
