@@ -2,5 +2,7 @@
     "Тестовый пример": "Test example",
     "Перевод": "Translate",
     "Главная страница": "Main Page",
-    "Вы ввели неверный логин или пароль": "Uncorrect username or password"
+    "Вы ввели неверный логин или пароль": "Uncorrect username or password",
+    "Войти": "Enter",
+    "Форма авторизации": "Authorization form"
 }

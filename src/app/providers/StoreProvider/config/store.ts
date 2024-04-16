@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { StateSchema } from './StateSchema';
 import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
-import { loginReducer } from 'features/AuthByUsername';
+import { loginReducer, modalReducer } from 'features/AuthByUsername';
 import { profileReducer } from 'entities/Profile';
 import { itemReducer, itemsReducer } from 'entities/Items';
 
@@ -14,6 +14,7 @@ export const store = configureStore<StateSchema>({
         profile: profileReducer,
         items: itemsReducer,
         item: itemReducer,
+        modal: modalReducer,
     },
     devTools: __IS_DEV__,
 });

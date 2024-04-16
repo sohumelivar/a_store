@@ -12,7 +12,6 @@ import { getItemsAll } from "entities/Items";
 const App = () => {
     const {theme} = useTheme();
     const dispatch: AppDispatch = useDispatch();
-    const { items, isLoading, error } = useSelector((state: RootState) => state.items);
     
     useEffect(() => {
         dispatch(initAuthData());

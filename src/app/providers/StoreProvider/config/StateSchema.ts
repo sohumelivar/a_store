@@ -2,7 +2,7 @@ import { CounterState } from "entities/Counter";
 import { ItemsState, ItemState } from "entities/Items";
 import { ProfileSchema } from "entities/Profile";
 import { UserSchema } from "entities/User";
-import { LoginSchema } from "features/AuthByUsername";
+import { LoginSchema, ModalSchema } from "features/AuthByUsername";
 
 export interface StateSchema {
     counter: CounterState;
@@ -11,4 +11,5 @@ export interface StateSchema {
     profile: ProfileSchema;
     items: ItemsState;
     item: ItemState;
+    modal: ModalSchema;
 }
