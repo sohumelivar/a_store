@@ -3,7 +3,7 @@ import { $api } from 'shared/api/api';
 import { ItemSchema } from '../types/ItemSchema';
 
 export const getItemWithId = createAsyncThunk<ItemSchema, number>(
-    'items/fetchItem',
+    'items/getItemWithId',
     async (itemId, { rejectWithValue }) => {
         try {
             const response = await $api.post<ItemSchema>('http://localhost:5000/api/user/getItemWithId', { id: itemId });

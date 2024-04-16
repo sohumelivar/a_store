@@ -10,7 +10,6 @@ import { loginByUsername } from 'features/AuthByUsername/model/services/loginByU
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
 
-
 interface LoginFormProps {
    className?: string;
 };
