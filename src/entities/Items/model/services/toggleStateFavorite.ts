@@ -9,9 +9,9 @@ interface ToggleFavoriteParams {
 
 export const toggleStateFavorite = createAsyncThunk<ItemSchema, ToggleFavoriteParams>(
     'item/toggleStateFavorite',
-    async ({itemId, userId}, { rejectWithValue }) => {
+    async ({ itemId, userId }, { rejectWithValue }) => {
         try {
-            const response = await $api.post<ItemSchema>('http://localhost:5000/api/user/toggleStateFavorite', {
+            const response = await $api.post<ItemSchema>('http://localhost:5000/api/items/toggleStateFavorite', {
                 itemId,
                 userId
             });
