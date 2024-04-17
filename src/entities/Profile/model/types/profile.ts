@@ -1,11 +1,11 @@
 import { City } from "shared/const/common";
 
 export interface Profile {
+    username: string;
+    password: string;
     first: string;
     lastname: string;
     age: number;
-    city: City;
-    username: string;
     avatar: string;
 }
 

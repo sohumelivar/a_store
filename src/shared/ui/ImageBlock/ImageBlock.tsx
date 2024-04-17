@@ -11,11 +11,13 @@ interface ImageBlockProps {
 export const ImageBlock = ({className, images}: ImageBlockProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const goToNext = () => {
+    const goToNext = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     };
   
-    const goToPrev = () => {
+    const goToPrev = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
       setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
     };
 

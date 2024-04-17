@@ -21,7 +21,7 @@ export const ItemDescription = ({className, itemInfo}: ItemDescriptionProps) => 
             <div className={cls.itemUserName} >{'Jack'}</div>
         </div>
         <div className={cls.favoritesWrapper} >
-          <FavoriteBtn />
+          <FavoriteBtn itemId={itemInfo.id} isFavorite={itemInfo?.isFavorite}/>
         </div>
       </div>
     )

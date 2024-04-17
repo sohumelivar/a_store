@@ -4,6 +4,7 @@ import { ItemSchema } from "./model/types/ItemSchema";
 import { ItemsSchema } from "./model/types/ItemsSchema";
 import itemsReducer, { ItemsState } from "./model/slice/ItemsSlice";
 import itemReducer, { ItemState } from "./model/slice/ItemSlice";
+import { toggleStateFavorite } from "./model/services/toggleStateFavorite";
 
 
 
@@ -16,5 +17,6 @@ export {
     ItemsState,
     getItemWithId,
     itemReducer,
-    ItemState
+    ItemState,
+    toggleStateFavorite
 }

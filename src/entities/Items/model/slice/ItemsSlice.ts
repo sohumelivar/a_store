@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ItemsSchema } from '../types/ItemsSchema';
 import { getItemsAll } from '../services/getItemsAll';
+import { toggleStateFavorite } from '../services/toggleStateFavorite';
 
 export interface ItemsState {
     items: ItemsSchema;
@@ -31,6 +32,12 @@ const itemsSlice = createSlice({
             .addCase(getItemsAll.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message || 'Failed to fetch items';
+            })
+            .addCase(toggleStateFavorite.fulfilled, (state, action) => {
+                const index = state.items.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    state.items[index] = action.payload;
+                }
             });
     }
 });

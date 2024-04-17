@@ -1,10 +1,10 @@
 export interface ItemSchema {
     id?: number;
-    photo?: string[];
     itemName?: string;
+    category?: string;
     description?: string;
     price?: number;
-    category?: string;
+    photo?: string[];
     onEdit?: boolean;
     isFavorite?: boolean;
 }
