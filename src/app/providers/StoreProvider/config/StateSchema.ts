@@ -3,6 +3,7 @@ import { ItemsState, ItemState } from "entities/Items";
 import { ProfileSchema } from "entities/Profile";
 import { UserSchema } from "entities/User";
 import { LoginSchema, ModalSchema } from "features/AuthByUsername";
+import { RegistrationSchema } from "pages/RegistrationPage";
 
 export interface StateSchema {
     counter: CounterState;
@@ -12,4 +13,5 @@ export interface StateSchema {
     items: ItemsState;
     item: ItemState;
     modal: ModalSchema;
+    registration: RegistrationSchema;
 }
