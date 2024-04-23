@@ -4,6 +4,6 @@ export interface RegistrationSchema {
     secondPassword: string;
     firstname: string;
     lastname: string;
-    age: string; 
-    avatar: string;
+    age: number | null; 
+    avatar: File | null;
 };
