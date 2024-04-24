@@ -1,15 +1,15 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './Navbar.module.scss';
-import { Button, ThemeButton } from 'shared/ui/Buton/Button';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useState } from 'react';
 import { LoginModal, setIsAuthModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
-import { logout } from 'entities/User';
+import { initAuthData, logout } from 'entities/User';
 import { NavbarItemsList } from 'widgets/Navbar/model/items';
 import { NavbarItem } from '../NavbarItem/NavbarItem';
 import { AppLink } from 'shared/ui/AppLink/AppLink';
+import { useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
    className?: string;
@@ -20,28 +20,41 @@ export const Navbar = memo(({className}: NavbarProps) => {
     const authData = useSelector((state: RootState) => state.user.authData);
     const dispatch: AppDispatch = useDispatch();
     const isAuthModal = useSelector((state: RootState) => state.modal.isAuthModal);
+    const navigate = useNavigate();
 
   const onCloseModal = useCallback(() => {
     dispatch(setIsAuthModal(false));
-  }, [isAuthModal])
+  }, [isAuthModal]);
 
   const onShowModal = useCallback(() => {
     dispatch(setIsAuthModal(true));
-  }, [isAuthModal, authData])
+  }, [isAuthModal, authData]);
 
   const onLogout = useCallback(() => {
     dispatch(logout());
     dispatch(setIsAuthModal(false));
-  }, [isAuthModal, authData]) 
+  }, [isAuthModal, authData]);
+
+  const handleCreateAdClick = () => {
+    dispatch(initAuthData());
+    if (!authData) {
+      navigate('/favorites');
+      return dispatch(setIsAuthModal(true));
+    }
+    console.log('create item ------ >>>');
+  }
 
     return (
       <div className={classNames(cls.Navbar, {}, [className])}>
         <div className={cls.links}>
           {NavbarItemsList.map((item) => (
-            <NavbarItem 
-              key={item.text}
-              item={item}
-            />
+            item.path === '/addItem' ? 
+              <AppLink key={item.text} to="/addItem" onClick={handleCreateAdClick}>Объявление +</AppLink> 
+              :
+              <NavbarItem 
+                key={item.text}
+                item={item}
+              />
           ))}
             {authData ? 
             <AppLink to='/' onClick={onLogout} className={cls.mainLink}>{t('Выйти')}</AppLink>

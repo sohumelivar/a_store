@@ -4,8 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FavoriteBtn } from "shared/ui/FavoriteBtn/ui/FavoriteBtn";
 
 const AboutPage = memo(() => {
-    const {t}= useTranslation('about');
-
+    const {t}= useTranslation();
 
     return (
         <div>
