@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 import { useRegistrationForm } from '../hooks/useRegistrationForm';
 import { Button } from 'shared/ui/Buton/Button';
+import { registrationFormAPI } from '../api/registrationFormAPI';
 
 interface RegistrationPageProps {
     className?: string;
@@ -16,6 +17,7 @@ const RegistrationPage = memo(({ className }: RegistrationPageProps) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('Form data:', formState);
+        registrationFormAPI(formState);
     };
 
     return (
