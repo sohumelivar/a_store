@@ -14,7 +14,7 @@ interface MainPageProps {
 const MainPage = ({className}: MainPageProps) => {
     const { t } = useTranslation();
     const { items, isLoading, error } = useSelector((state: RootState) => state.items);
-  const { item } = useSelector((state: RootState) => state.item);
+    const { item } = useSelector((state: RootState) => state.item);
 
 
     return (

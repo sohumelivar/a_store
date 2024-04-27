@@ -1,3 +1,4 @@
+import { ProtectedRoute } from "app/providers/router"
 import { AboutPage } from "pages/AboutPage"
 import { MainPage } from "pages/MainPage"
 import { NotFoundPage } from "pages/NotFoundPage"
@@ -41,7 +42,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.PROFILE]: {
         path: RoutePath.profile,
-        element: <ProfilePage />
+        element: <ProtectedRoute><ProfilePage/></ProtectedRoute> 
     },
     [AppRoutes.TEST]: {
         path: RoutePath.test,
@@ -53,7 +54,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.ADD_ITEM]: {
         path: RoutePath.addItem,
-        element: <AddItemPage />
+        element: <ProtectedRoute><AddItemPage /></ProtectedRoute>
     },
     //LAST
     [AppRoutes.NOT_FOUND]: {
