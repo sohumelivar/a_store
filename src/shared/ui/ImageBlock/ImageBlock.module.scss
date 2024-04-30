@@ -42,14 +42,11 @@
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(255, 255, 255, 0.5);
-    /* Легкая прозрачность */
     display: none;
-    /* Скрываем по умолчанию */
     padding: 5px 10px;
     border-radius: 10px;
 }
 
 .ImageBlockWrapper:hover .counter {
     display: block;
-    /* Показываем только при наведении */
 }

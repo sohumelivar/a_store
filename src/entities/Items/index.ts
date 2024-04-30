@@ -3,11 +3,8 @@ import { getItemWithId } from "./model/services/getItemWithId";
 import { ItemSchema } from "./model/types/ItemSchema";
 import { ItemsSchema } from "./model/types/ItemsSchema";
 import itemsReducer, { ItemsState } from "./model/slice/ItemsSlice";
-import itemReducer, { ItemState } from "./model/slice/ItemSlice";
+import itemReducer, { ItemState, setItem } from "./model/slice/ItemSlice";
 import { toggleStateFavorite } from "./model/services/toggleStateFavorite";
-
-
-
 
 export {
     ItemSchema,
@@ -18,5 +15,6 @@ export {
     getItemWithId,
     itemReducer,
     ItemState,
-    toggleStateFavorite
+    toggleStateFavorite,
+    setItem,
 }

@@ -1,7 +1,6 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './ImageBlock.module.scss';
 import { useState } from 'react';
-import { Button, ThemeButton } from '../Buton/Button';
 
 interface ImageBlockProps {
    className?: string;
