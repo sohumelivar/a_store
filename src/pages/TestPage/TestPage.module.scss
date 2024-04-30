@@ -1,4 +1,15 @@
-.TestPage {
-    background: yellowgreen;
-    width: 100%;
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    height: 60px;
+    background: rgb(108, 71, 145);
+}
+
+.Main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

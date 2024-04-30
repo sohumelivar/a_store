@@ -21,9 +21,18 @@ export const TestPage = ({className}: TestPageProps) => {
   }
 
     return (
-      <div className={classNames(cls.TestPage, {}, [className])}>
-          <ItemCard itemInfo={example} />
+      <div className={classNames(cls.wrapper)}>
+        <div className={classNames(cls.header)} >header</div>
+        <div className={classNames(cls.Main)}>
+          <div className={classNames(cls.leftDiv)} >
+            Left div
+          </div>
+          <div className={classNames(cls.rightDiv)} >
+            <button>Test btn</button>
+          </div>
+        </div>
       </div>
+      
     )
 };
 

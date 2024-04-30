@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ItemSchema } from "../types/ItemSchema";
 import { getItemWithId } from "../services/getItemWithId";
 import { toggleStateFavorite } from "../services/toggleStateFavorite";
@@ -18,7 +18,11 @@ const initialState: ItemState = {
 const itemSlice = createSlice({
     name: 'item',
     initialState,
-    reducers: {},
+    reducers: {
+        setItem: (state, action: PayloadAction<ItemSchema>) => {
+            state.item = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getItemWithId.pending, (state) => {
@@ -48,4 +52,5 @@ const itemSlice = createSlice({
     }
 });
 
+export const { setItem } = itemSlice.actions;
 export default itemSlice.reducer;
