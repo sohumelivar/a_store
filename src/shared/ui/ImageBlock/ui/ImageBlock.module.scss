@@ -1,13 +1,37 @@
 .ImageBlockWrapper {
     display: flex;
     position: relative;
-    max-width: 200px;
-    max-height: 200px;
+
 }
 
-.imageBlock {
+.SWH {
+    max-width: var(--imageBlock-width-S);
+    max-height: var(--imageBlock-height-S);
+}
+
+.MWH {
+    max-width: var(--imageBlock-width-M);
+    max-height: var(--imageBlock-height-M);
+}
+
+.LWH {
+    max-width: var(--imageBlock-width-L);
+    max-height: var(--imageBlock-height-L);
+}
+
+.SH {
     width: 100%;
-    height: 200px;
+    height: var(--imageBlock-height-S);
+}
+
+.MH {
+    width: 100%;
+    height: var(--imageBlock-height-M);
+}
+
+.LH {
+    width: 100%;
+    height: var(--imageBlock-height-L);
 }
 
 .ImageBlockWrapper button {
