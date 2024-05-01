@@ -3,7 +3,7 @@ import cls from './AddItem.module.scss';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 import { Button } from 'shared/ui/Buton/Button';
-import { useRegistrationForm } from '../hooks/useAddItemForn';
+import { useRegistrationForm } from '../hooks/useAddItemForm';
 import { AddItemAPI } from '../api/addItemApi';
 
 interface AddItemPageProps {

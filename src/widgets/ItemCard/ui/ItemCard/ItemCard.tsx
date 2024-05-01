@@ -1,13 +1,13 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './ItemCard.module.scss';
 import { ItemSchema } from 'entities/Items/model/types/ItemSchema';
-import { ImageBlock } from 'shared/ui/ImageBlock/ImageBlock';
 import { ItemDescription } from '../ItemDescription/ItemDescription';
 import { getItemWithId } from 'entities/Items';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'app/providers/StoreProvider';
 import { useNavigate } from 'react-router-dom';
 import { memo, useCallback } from 'react';
+import { ImageBlock, ImageSizeSchema } from 'shared/ui/ImageBlock';
 
 interface ItemCardProps {
    className?: string;
@@ -30,7 +30,7 @@ const ItemCard = memo(({className, itemInfo}: ItemCardProps) => {
 
   return (
     <div onClick={getItemHandle} className={classNames(cls.ItemCard, {}, [className])}>
-      <ImageBlock images={itemInfo.photo} />
+      <ImageBlock images={itemInfo.photo} maxWidthHeight={ImageSizeSchema.maxWH_S} imageHeight={ImageSizeSchema.IH_S}/>
       <ItemDescription itemInfo={itemInfo} />
     </div>
   )
