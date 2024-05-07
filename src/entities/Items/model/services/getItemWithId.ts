@@ -7,7 +7,7 @@ export const getItemWithId = createAsyncThunk<ItemSchema, number>(
     'items/getItemWithId',
     async (itemId, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.post<ItemSchema>('http://localhost:5000/api/items/getItemWithId', { id: itemId });
+            const response = await $api.post<ItemSchema>('/items/getItemWithId', { id: itemId });
             dispatch(setItem(response.data));
             return response.data
         } catch (error: any) {

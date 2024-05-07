@@ -8,8 +8,8 @@ import { memo, useCallback } from 'react';
 import { setUsername, setPassword, setIsAuthModal } from 'features/AuthByUsername';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
-import { Input } from 'shared/ui/Input/Input';
 import { useNavigate } from 'react-router-dom';
+import { Input } from 'shared/ui/input/Input';
 
 interface LoginFormProps {
    className?: string;
