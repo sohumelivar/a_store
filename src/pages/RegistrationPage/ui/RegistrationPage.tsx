@@ -13,6 +13,7 @@ interface RegistrationPageProps {
 const RegistrationPage = memo(({ className }: RegistrationPageProps) => {
     const { t } = useTranslation();
     const { formState, handleInputChange } = useRegistrationForm();
+    console.log("🚀 ~ RegistrationPage ~ formState:", formState);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -24,6 +25,7 @@ const RegistrationPage = memo(({ className }: RegistrationPageProps) => {
         <form onSubmit={handleSubmit} className={classNames(cls.RegistrationPage, {}, [className])}>
             <div className={cls.inputsWrapper}>
                 <input onChange={handleInputChange} name="username" value={formState.username} type="text" placeholder="Введите username"/>
+                <input onChange={handleInputChange} name="email" value={formState.email} type="email" placeholder="Введите email"/>
                 <input onChange={handleInputChange} name="password" value={formState.password} type="password" placeholder="Введите пароль"/>
                 <input onChange={handleInputChange} name="secondPassword" value={formState.secondPassword} type="password" placeholder="Повторите пароль"/>
                 <input onChange={handleInputChange} name="firstname" value={formState.firstname} type="text" placeholder="Введите имя"/>
