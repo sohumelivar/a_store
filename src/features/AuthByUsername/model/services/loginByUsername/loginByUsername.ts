@@ -7,6 +7,7 @@ import { setUsername, setPassword } from 'features/AuthByUsername';
 
 interface LoginByUsernameProps {
     username: string;
+    email: string;
     password: string;
 }
 
@@ -16,20 +17,20 @@ interface LoginError {
 
 export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, { rejectValue: LoginError }>(
     'login/loginByUsername',
-    async ({ username, password }, { rejectWithValue, dispatch }) => {
+    async ({ username, email, password }, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.post('/user/test', { username, password })
+            const response = await $api.post('/user/test', { username, email, password });
             if (!response.data) {
                 throw new Error();
-            }
+            };
 
-            localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data))
+            localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data));
             dispatch(setAuthData(response.data));
-            dispatch(setUsername(''))
-            dispatch(setPassword(''))
+            dispatch(setUsername(''));
+            dispatch(setPassword(''));
             return response.data;
         } catch (err) {
             return rejectWithValue({ errorMessage: i18n.t('Вы ввели неверный логин или пароль') });
-        }
+        };
     }
-)
+);
