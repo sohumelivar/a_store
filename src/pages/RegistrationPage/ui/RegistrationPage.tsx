@@ -5,6 +5,10 @@ import { memo } from 'react';
 import { useRegistrationForm } from '../hooks/useRegistrationForm';
 import { Button } from 'shared/ui/Buton/Button';
 import { registrationFormAPI } from '../api/registrationFormAPI';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatch } from 'app/providers/StoreProvider';
+import { useDispatch } from 'react-redux';
+import { setAuthData } from 'entities/User';
 
 interface RegistrationPageProps {
     className?: string;
@@ -14,11 +18,15 @@ const RegistrationPage = memo(({ className }: RegistrationPageProps) => {
     const { t } = useTranslation();
     const { formState, handleInputChange } = useRegistrationForm();
     console.log("🚀 ~ RegistrationPage ~ formState:", formState);
+    const dispatch: AppDispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('Form data:', formState);
         registrationFormAPI(formState);
+        dispatch(setAuthData(formState));
+        navigate('/');
     };
 
     return (

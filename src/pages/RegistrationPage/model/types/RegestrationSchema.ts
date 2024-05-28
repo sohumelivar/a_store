@@ -1,4 +1,5 @@
 export interface RegistrationSchema {
+    id: number;
     username: string;
     email: string;
     password: string;
@@ -7,4 +8,5 @@ export interface RegistrationSchema {
     lastname: string;
     age: number | null; 
     avatar: File | null;
+    error?: string; 
 };

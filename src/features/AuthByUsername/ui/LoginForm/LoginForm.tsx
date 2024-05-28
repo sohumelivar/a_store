@@ -5,11 +5,11 @@ import { Button } from 'shared/ui/Buton/Button';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback } from 'react';
-import { setUsername, setEmail, setPassword, setIsAuthModal } from 'features/AuthByUsername';
+import { setUsername, setPassword, setIsAuthModal } from 'features/AuthByUsername';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { useNavigate } from 'react-router-dom';
-import { Input } from 'shared/ui/input/Input';
+import { Input } from 'shared/ui/Input/Input';
 
 interface LoginFormProps {
    className?: string;
@@ -18,7 +18,7 @@ interface LoginFormProps {
 export const LoginForm = memo(({className}: LoginFormProps) => {
     const { t } = useTranslation();
     const dispatch: AppDispatch = useDispatch();
-    const { username, email, password, isLoading, error } = useSelector((state: RootState) => state.loginForm);
+    const { username, password, isLoading, error } = useSelector((state: RootState) => state.loginForm);
     const { isAuthModal } = useSelector((state: RootState) => state.modal);
     const navigate = useNavigate();
 
@@ -27,16 +27,12 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
       dispatch(setUsername(value))
     }, [dispatch]);
 
-    const onChangeEmail = useCallback((value: string) => {
-      dispatch(setEmail(value))
-    }, [dispatch]);
-
     const onChangePassword = useCallback((value: string) => {
       dispatch(setPassword(value))
     }, [dispatch]);
 
     const onLoginClick = useCallback(() => {
-      dispatch(loginByUsername({username, password, email}));
+      dispatch(loginByUsername({username, password}));
     }, [dispatch, username, password])
 
     const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -61,14 +57,6 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
             placeholder='...enter username'
             onChange={onChangeUsername}
             value={username} 
-          />
-          <Input 
-            onKeyDown={handleKeyDown}
-            type="email" 
-            className={cls.input} 
-            placeholder='...enter email'
-            onChange={onChangeEmail}
-            value={email} 
           />
           <Input 
             onKeyDown={handleKeyDown}
