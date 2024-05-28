@@ -6,5 +6,6 @@ export const registrationFormAPI = async (props: RegistrationSchema) => {
     console.log('response --- >>> ', response.data);
     if (response.data.error) {
         console.log('error ------ >>>>>');
-    }  
+    }
+    return response.data;  
 } 
