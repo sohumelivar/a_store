@@ -4,6 +4,7 @@ import { RegistrationSchema } from "../model/types/RegestrationSchema";
 
 export const useRegistrationForm = () => {
     const [formState, setFormState] = useState<RegistrationSchema>({
+        id: undefined,
         username: '',
         email: '',
         password: '',

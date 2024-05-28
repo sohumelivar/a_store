@@ -23,7 +23,6 @@ export const Counter = () => {
         <Button onClick={handleIncrement} >increment</Button>
         <Button onClick={handleDecrement} >decrement</Button>
         <Text title={'User'} />
-        <Text text={user?.id}/>
         <Text text={user?.username}/>
       </div>
     )

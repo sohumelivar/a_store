@@ -7,7 +7,6 @@ import { setUsername, setPassword } from 'features/AuthByUsername';
 
 interface LoginByUsernameProps {
     username: string;
-    email: string;
     password: string;
 }
 
@@ -17,13 +16,12 @@ interface LoginError {
 
 export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, { rejectValue: LoginError }>(
     'login/loginByUsername',
-    async ({ username, email, password }, { rejectWithValue, dispatch }) => {
+    async ({ username, password }, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.post('/user/test', { username, email, password });
+            const response = await $api.post('/user/test', { username, password });
             if (!response.data) {
                 throw new Error();
             };
-
             localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data));
             dispatch(setAuthData(response.data));
             dispatch(setUsername(''));
