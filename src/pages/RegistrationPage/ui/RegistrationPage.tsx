@@ -17,28 +17,32 @@ interface RegistrationPageProps {
 const RegistrationPage = memo(({ className }: RegistrationPageProps) => {
     const { t } = useTranslation();
     const { formState, handleInputChange } = useRegistrationForm();
-    console.log("🚀 ~ RegistrationPage ~ formState:", formState);
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
     const [passUsername, setPassUsername] = useState(false);
     const [passEmail, setPassEmail] = useState(false);
     const [passPassword, setPassPassword] = useState(false);
-    console.log(passUsername);
-    console.log(passEmail);
-    console.log(passPassword);
+    const [btn, setBtn] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
-            console.log('Form data:', formState);
+            setBtn(true);
+            setErrorMessage('');
             const userDTO: User = await registrationFormAPI(formState);
-            console.log('userDTO --- >>> ', userDTO);
             if (userDTO.error) {
-                console.log('tut');
-                
+                if(userDTO.errorMessage) {
+                    setErrorMessage(userDTO.errorMessage);
+                    setBtn(false);
+                    setPassUsername(false);
+                    setPassEmail(false);
+                    setPassPassword(false);
+                }
                 setPassUsername(userDTO.emptyFields.username);
                 setPassEmail(userDTO.emptyFields.email);
                 setPassPassword(userDTO.emptyFields.password);
+                setBtn(false);
             } else {
                 dispatch(setAuthData(userDTO));
                 navigate('/');
@@ -69,7 +73,8 @@ const RegistrationPage = memo(({ className }: RegistrationPageProps) => {
                 <input onChange={handleInputChange} name="age" value={formState.age || ''} type="number" placeholder="Введите возраст"/>
                 <input onChange={handleInputChange} name="avatar" type="file" placeholder="Фото"/>
             </div>
-            <Button type="submit">Зарегистрироваться</Button>
+            {errorMessage && <div>{errorMessage}</div>}
+            <Button type="submit" disabled={btn} >Зарегистрироваться</Button>
         </form>
     )
 });
