@@ -1,7 +1,8 @@
 export interface User {
     id: number;
     username: string;
-    error?: string;
+    error?: boolean;
+    errorMessage?: string;
     emptyFields?: FilledDataSchema;
 }
 
