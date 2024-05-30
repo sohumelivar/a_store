@@ -18,7 +18,7 @@ export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, { re
     'login/loginByUsername',
     async ({ username, password }, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.post('/user/test', { username, password });
+            const response = await $api.post('/user/login', { username, password });
             if (!response.data) {
                 throw new Error();
             };

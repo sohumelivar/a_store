@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './RegistrationPage.module.scss';
 import { useTranslation } from 'react-i18next';
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useRegistrationForm } from '../hooks/useRegistrationForm';
 import { Button } from 'shared/ui/Buton/Button';
 import { registrationFormAPI } from '../api/registrationFormAPI';
