@@ -1,3 +1,5 @@
+import { User } from "entities/User";
+
 export interface RegistrationSchema {
     id: number;
     username: string;
@@ -10,4 +12,6 @@ export interface RegistrationSchema {
     avatar: File | null;
     error?: boolean;
     errorMessage?: string;
+    accessToken?: string;
+    user?: User;
 };

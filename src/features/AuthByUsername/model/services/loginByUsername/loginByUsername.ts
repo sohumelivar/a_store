@@ -18,14 +18,13 @@ export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, { re
     'login/loginByUsername',
     async ({ username, password }, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.post('/user/login', { username, password }, {
-                withCredentials: true
-            });
+            const response = await $api.post('/user/login', { username, password });
             if (!response.data) {
                 throw new Error();
             };
-            localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data));
-            dispatch(setAuthData(response.data));
+            localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data.user));
+            localStorage.setItem('token', response.data.accessToken);
+            dispatch(setAuthData(response.data.user));
             dispatch(setUsername(''));
             dispatch(setPassword(''));
             return response.data;
