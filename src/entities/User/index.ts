@@ -1,4 +1,4 @@
-import userReducer, { setAuthData, initAuthData, logout } from './model/slice/userSlice';
+import userReducer, { setAuthData, logout } from './model/slice/userSlice';
 import { User, UserSchema } from './model/types/user';
 
 export {
@@ -6,6 +6,5 @@ export {
     User,
     UserSchema,
     setAuthData,
-    initAuthData,
     logout,
 }

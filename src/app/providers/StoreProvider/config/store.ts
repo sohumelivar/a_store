@@ -5,12 +5,15 @@ import { userReducer } from 'entities/User';
 import { loginReducer, modalReducer } from 'features/AuthByUsername';
 import { profileReducer } from 'entities/Profile';
 import { itemReducer, itemsReducer } from 'entities/Items';
+import { registrationReducer } from 'features/Registration';
+
 
 export const store = configureStore<StateSchema>({
     reducer: {
         counter: counterReducer,
         user: userReducer,
         loginForm: loginReducer,
+        registrationForm: registrationReducer,
         profile: profileReducer,
         items: itemsReducer,
         item: itemReducer,
