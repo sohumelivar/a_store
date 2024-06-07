@@ -1,11 +1,11 @@
 import { ProtectedRoute } from "app/providers/router"
 import { ProtectedRouteAuth } from "app/providers/router/helpers/ProtectedRouteAuth"
+import { RegistrationPage } from "features/Registration"
 import { AboutPage } from "pages/AboutPage"
 import { ItemPage } from "pages/ItemPage/ui/ItemPage"
 import { MainPage } from "pages/MainPage"
 import { NotFoundPage } from "pages/NotFoundPage"
 import { ProfilePage } from "pages/ProfilePage"
-import { RegistrationPage } from "pages/RegistrationPage"
 import { TestPage } from "pages/TestPage/TestPage"
 import { RouteProps } from "react-router-dom"
 import { AddItemPage } from "widgets/AddItem"
@@ -53,7 +53,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.REGISTRATION]: {
         path: RoutePath.registration,
-        element: <ProtectedRouteAuth><RegistrationPage /></ProtectedRouteAuth>
+        element: <ProtectedRouteAuth><RegistrationPage/></ProtectedRouteAuth>
     },
     [AppRoutes.ADD_ITEM]: {
         path: RoutePath.addItem,

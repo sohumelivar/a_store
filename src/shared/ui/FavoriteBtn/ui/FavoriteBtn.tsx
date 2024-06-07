@@ -4,8 +4,7 @@ import { FC, memo, useCallback, useState } from 'react';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleStateFavorite } from 'entities/Items';
-import { initAuthData } from 'entities/User';
-import { LoginModal, setIsAuthModal } from 'features/AuthByUsername';
+import { setIsAuthModal } from 'features/AuthByUsername';
 
 interface FavoriteBtn {
     itemId?: number;
@@ -24,7 +23,7 @@ export const FavoriteBtn: FC<FavoriteBtn> = memo((props) => {
     
     const toggleFavorite = useCallback((event: React.MouseEvent<HTMLSpanElement>) => {
         event.stopPropagation();
-        dispatch(initAuthData());
+        // dispatch(initAuthData());
         if (authData) {
             dispatch(toggleStateFavorite({userId: Number(authData.id), itemId}))
             return setIsActive(current => !current);

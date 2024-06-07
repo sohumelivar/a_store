@@ -60,7 +60,7 @@ export const LoginForm = memo(({className}: LoginFormProps) => {
           />
           <Input 
             onKeyDown={handleKeyDown}
-            type="text" 
+            type="password" 
             className={cls.input} 
             placeholder='...enter password'
             onChange={onChangePassword} 
