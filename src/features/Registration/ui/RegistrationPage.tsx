@@ -4,7 +4,7 @@ import { Button } from 'shared/ui/Buton/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { 
     setAge, 
     setAvatar, 
@@ -28,9 +28,20 @@ export const RegistrationPage = ({className}: RegistrationPageProps) => {
     const navigate = useNavigate();
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
+    useEffect(() => {
+        return () => {
+            dispatch(setUsername(''));
+            dispatch(setEmail(''));
+            dispatch(setPassword(''));
+            dispatch(setSecondPassword(''));
+            dispatch(setFirstname(''));
+            dispatch(setLastname(''));
+            dispatch(setAge(''));
+            dispatch(setAvatar(''));
+        }
+    }, [dispatch])
+
     const onChangeUsername = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value);
-        
         dispatch(setUsername(event.target.value));
     }, [dispatch]);
 
@@ -64,14 +75,14 @@ export const RegistrationPage = ({className}: RegistrationPageProps) => {
         }
     }, [dispatch]);
 
-    const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const errors = validateForm(regForm);
         if (errors.length > 0) {
             setErrorMessages(errors);
         } else {
-            dispatch(registerUser(regForm));
-            if (!regForm.error) {
+            const resultAction = await dispatch(registerUser(regForm));
+            if (registerUser.fulfilled.match(resultAction)) {
                 navigate('/');
             }
         }
@@ -90,6 +101,8 @@ export const RegistrationPage = ({className}: RegistrationPageProps) => {
                         <input onChange={onChangeAge} value={regForm.age} type="number" placeholder="Введите возраст"/>
                         <input onChange={onChangeAvatar} type="file" placeholder="Фото"/>
                     </div>
+                    {regForm.error && <p>Error: {regForm.error}</p>}
+                    {regForm.errorMessage && <p>ErrorMessage: {regForm.errorMessage}</p>}
                     {errorMessages.length > 0 && (
                     <div className={cls.errorMessages}>
                         {errorMessages.map((error, index) => (
@@ -97,8 +110,8 @@ export const RegistrationPage = ({className}: RegistrationPageProps) => {
                         ))}
                     </div>
                     )}
+                <Button disabled={regForm.isLoading} type="submit">Зарегистрироваться</Button>
             </div>
-            <Button disabled={regForm.isLoading} type="submit">Зарегистрироваться</Button>
         </form>
     )
 };

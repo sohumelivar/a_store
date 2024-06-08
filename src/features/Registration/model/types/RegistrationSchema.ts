@@ -5,8 +5,9 @@ export interface RegistrationSchema {
     secondPassword: string;
     firstname?: string;
     lastname?: string;
-    age?: number | '';
-    avatar?: File | '';
+    age?: number | string;
+    avatar?: File | string;
     isLoading?: boolean;
     error?: string | boolean;
+    errorMessage?: string;
 }

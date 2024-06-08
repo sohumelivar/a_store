@@ -1,18 +1,8 @@
 import axios from "axios";
 
-// export const $api = axios.create({
-//     baseURL: 'http://192.168.1.55:5000/api',
-//     headers: {
-//         'Authorization': `test1`
-//     }
-// });     
-
 export const $api = axios.create({
     baseURL: 'http://localhost:5000/api',
     withCredentials: true,
-    // headers: {
-    //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-    // }
 });
 
 $api.interceptors.request.use(
@@ -33,15 +23,14 @@ $api.interceptors.response.use((config) => {
 }, async (error) => {
     try {
         const originalRequest = error.config;
-        console.log('originalRequest --- >>> ', originalRequest);
-
         if (error.response.status === 401) {
             const response = await axios.get('http://localhost:5000/api/user/refresh', { withCredentials: true });
             localStorage.setItem('token', response.data.accessToken);
             return $api.request(originalRequest);
+        } else if (error.response.status === 400) {
+            return Promise.reject(error);
         }
     } catch (error) {
         console.log(error);
-
     }
 })
