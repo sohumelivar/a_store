@@ -28,8 +28,8 @@ export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, { re
             dispatch(setUsername(''));
             dispatch(setPassword(''));
             return response.data;
-        } catch (err) {
-            return rejectWithValue({ errorMessage: i18n.t('Вы ввели неверный логин или пароль') });
+        } catch (error) {
+            return rejectWithValue(error.response.data);
         };
     }
 );
