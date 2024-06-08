@@ -8,7 +8,8 @@ import {
     setFirstname,
     setLastname,
     setAge,
-    setAvatar,
+    setError,
+    setErrorMessage,
 } from "./model/slice/registrationSlice";
 import { RegistrationSchema } from "./model/types/RegistrationSchema";
 import { registerUser } from "./model/services/registerUser";
@@ -23,7 +24,8 @@ export {
     setFirstname,
     setLastname,
     setAge,
-    setAvatar,
+    setError,
+    setErrorMessage,
     RegistrationSchema,
     registerUser,
 }

@@ -6,7 +6,6 @@ export interface RegistrationSchema {
     firstname?: string;
     lastname?: string;
     age?: number | string;
-    avatar?: File | string;
     isLoading?: boolean;
     error?: string | boolean;
     errorMessage?: string;

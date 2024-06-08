@@ -10,7 +10,6 @@ const initialState: RegistrationSchema = {
     firstname: '',
     lastname: '',
     age: '',
-    avatar: '',
     isLoading: false,
     error: false,
     errorMessage: '',
@@ -41,8 +40,11 @@ export const registrationSlice = createSlice({
         setAge: (state, action: PayloadAction<number | string>) => {
             state.age = action.payload;
         },
-        setAvatar: (state, action: PayloadAction<File | string>) => {
-            state.avatar = action.payload;
+        setError: (state, action: PayloadAction<string | boolean>) => {
+            state.error = action.payload;
+        },
+        setErrorMessage: (state, action: PayloadAction<string>) => {
+            state.errorMessage = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -56,7 +58,7 @@ export const registrationSlice = createSlice({
         builder.addCase(registerUser.rejected, (state, action: PayloadAction<any>) => {
             state.isLoading = false;
             state.error = action.payload?.message || 'An unknown error occurred';
-            state.errorMessage = action.payload?.errors[0].message
+            state.errorMessage = action.payload?.errors[0]?.message
         });
     },
 });
@@ -69,7 +71,8 @@ export const {
     setFirstname,
     setLastname,
     setAge,
-    setAvatar,
+    setError,
+    setErrorMessage,
 } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
