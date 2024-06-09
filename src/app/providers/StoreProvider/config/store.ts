@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { StateSchema } from './StateSchema';
-import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
 import { loginReducer, modalReducer } from 'features/AuthByUsername';
 import { profileReducer } from 'entities/Profile';
@@ -10,7 +9,6 @@ import { registrationReducer } from 'features/Registration';
 
 export const store = configureStore<StateSchema>({
     reducer: {
-        counter: counterReducer,
         user: userReducer,
         loginForm: loginReducer,
         registrationForm: registrationReducer,

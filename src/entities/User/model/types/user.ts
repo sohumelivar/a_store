@@ -1,9 +1,11 @@
 export interface User {
     id: number;
     username: string;
-    error?: boolean;
+    isActivated: boolean;
 }
 
 export interface UserSchema {
-    authData?: User;
+    authData: User | null;
+    isLoading: boolean;
+    error: string | null;
 }

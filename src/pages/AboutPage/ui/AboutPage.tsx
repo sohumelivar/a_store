@@ -1,4 +1,3 @@
-import { Counter } from "entities/Counter/ui/Counter";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { $api } from "shared/api/api";
@@ -24,7 +23,6 @@ const AboutPage = memo(() => {
         <div>
             {t('О нас')}
             {t('test')}
-            <Counter />
             <FavoriteBtn />
             <button onClick={usersApi} >users</button>
             {users && users.map((el) => (

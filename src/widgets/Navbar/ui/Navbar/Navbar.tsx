@@ -5,7 +5,7 @@ import { memo, useCallback } from 'react';
 import { LoginModal, setIsAuthModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
-import { logout } from 'entities/User';
+import { logoutUser } from 'entities/User';
 import { NavbarItemsList } from 'widgets/Navbar/model/items';
 import { NavbarItem } from '../NavbarItem/NavbarItem';
 import { AppLink } from 'shared/ui/AppLink/AppLink';
@@ -28,8 +28,8 @@ export const Navbar = memo(({className}: NavbarProps) => {
     dispatch(setIsAuthModal(true));
   }, [isAuthModal, authData]);
 
-  const onLogout = useCallback(() => {
-    dispatch(logout());
+  const onLogout = useCallback(async () => {
+    await dispatch(logoutUser());
     dispatch(setIsAuthModal(false));
   }, [isAuthModal, authData]);
 

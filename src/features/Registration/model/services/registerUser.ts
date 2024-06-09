@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { $api } from "shared/api/api";
-import { USER_LOCAL_KEY } from "shared/const/localstorage";
+import { TOKEN_LOCAL_KEY, USER_LOCAL_KEY } from "shared/const/localstorage";
 import { setAuthData } from "entities/User";
 
 export const registerUser = createAsyncThunk(
@@ -14,7 +14,7 @@ export const registerUser = createAsyncThunk(
             });
             dispatch(setAuthData(response.data.user));
             localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data.user));
-            localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem(TOKEN_LOCAL_KEY, response.data.accessToken);
             return response.data;
         } catch (error: any) {
             if (error.response) {
