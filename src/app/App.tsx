@@ -7,14 +7,19 @@ import { Suspense, useEffect } from "react";
 import { AppDispatch } from "./providers/StoreProvider";
 import { useDispatch } from "react-redux";
 import { getItemsAll } from "entities/Items";
+import { checkUser } from "entities/User";
 
 const App = () => {
     const {theme} = useTheme();
     const dispatch: AppDispatch = useDispatch();
     
     useEffect(() => {
-        dispatch(getItemsAll());
-    }, [dispatch])
+        const initializeApp = async () => {
+            await dispatch(getItemsAll());
+            await dispatch(checkUser());
+        };
+        initializeApp();
+    }, [dispatch]);
     
     return (
         <div className={classNames('app', {}, [theme])}>

@@ -100,18 +100,25 @@ export const RegistrationPage = ({ className }: RegistrationPageProps) => {
         }
     }, [dispatch, regForm, navigate, avatarFile]);
 
+    const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleSubmit(event as any);
+        }
+    }, [handleSubmit]);
+
     return (
         <form onSubmit={handleSubmit}>
             <div className={classNames(cls.RegistrationPage, {}, [cls[className]])}>
                 <div className={cls.inputsWrapper}>
-                    <input onChange={onChangeUsername} value={regForm.username} type="text" placeholder="Введите username" required />
-                    <input onChange={onChangeEmail} value={regForm.email} type="text" placeholder="Введите email" required />
-                    <input onChange={onChangePassword} value={regForm.password} type="password" placeholder="Введите пароль" required />
-                    <input onChange={onChangeSecondPassword} value={regForm.secondPassword} type="password" placeholder="Повторите пароль" required />
-                    <input onChange={onChangeFirstname} value={regForm.firstname} type="text" placeholder="Введите имя" />
-                    <input onChange={onChangeLastname} value={regForm.lastname} type="text" placeholder="Введите фамилию" />
-                    <input onChange={onChangeAge} value={regForm.age} type="number" placeholder="Введите возраст" />
-                    <input onChange={onChangeAvatar} type="file" placeholder="Фото" />
+                    <input onKeyDown={handleKeyDown} onChange={onChangeUsername} value={regForm.username} type="text" placeholder="Введите username" required />
+                    <input onKeyDown={handleKeyDown} onChange={onChangeEmail} value={regForm.email} type="text" placeholder="Введите email" required />
+                    <input onKeyDown={handleKeyDown} onChange={onChangePassword} value={regForm.password} type="password" placeholder="Введите пароль" required />
+                    <input onKeyDown={handleKeyDown} onChange={onChangeSecondPassword} value={regForm.secondPassword} type="password" placeholder="Повторите пароль" required />
+                    <input onKeyDown={handleKeyDown} onChange={onChangeFirstname} value={regForm.firstname} type="text" placeholder="Введите имя" />
+                    <input onKeyDown={handleKeyDown} onChange={onChangeLastname} value={regForm.lastname} type="text" placeholder="Введите фамилию" />
+                    <input onKeyDown={handleKeyDown} onChange={onChangeAge} value={regForm.age} type="number" placeholder="Введите возраст" />
+                    <input onKeyDown={handleKeyDown} onChange={onChangeAvatar} type="file" placeholder="Фото" />
                 </div>
                 {regForm.error && <p>Error: {regForm.error}</p>}
                 {regForm.errorMessage && <p>ErrorMessage: {regForm.errorMessage}</p>}
