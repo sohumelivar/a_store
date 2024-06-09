@@ -1,4 +1,5 @@
-import userReducer, { setAuthData, logout } from './model/slice/userSlice';
+import { logoutUser } from './model/services/logout/logout';
+import userReducer, { setAuthData, setLoading, setError } from './model/slice/userSlice';
 import { User, UserSchema } from './model/types/user';
 
 export {
@@ -6,5 +7,7 @@ export {
     User,
     UserSchema,
     setAuthData,
-    logout,
+    setLoading,
+    setError,
+    logoutUser,
 }
