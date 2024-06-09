@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User, UserSchema } from '../types/user';
 import { USER_LOCAL_KEY } from 'shared/const/localstorage';
 import { logoutUser } from '../services/logout/logout';
-import { registerUser } from 'features/Registration';
+import { checkUser } from '../services/checkUser/checkUser';
 
 const initialState: UserSchema = {
     authData: null,
@@ -27,14 +27,25 @@ export const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(registerUser.pending, (state) => {
+        builder.addCase(logoutUser.pending, (state) => {
             state.isLoading = true;
             state.error = null;
         });
-        builder.addCase(registerUser.fulfilled, (state) => {
+        builder.addCase(logoutUser.fulfilled, (state) => {
             state.isLoading = false;
         });
-        builder.addCase(registerUser.rejected, (state, action: PayloadAction<any>) => {
+        builder.addCase(logoutUser.rejected, (state, action: PayloadAction<any>) => {
+            state.isLoading = false;
+            state.error = action.payload?.message || 'An unknown error occurred';
+        });
+        builder.addCase(checkUser.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        });
+        builder.addCase(checkUser.fulfilled, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(checkUser.rejected, (state, action: PayloadAction<any>) => {
             state.isLoading = false;
             state.error = action.payload?.message || 'An unknown error occurred';
         });

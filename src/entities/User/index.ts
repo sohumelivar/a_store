@@ -1,3 +1,4 @@
+import { checkUser } from './model/services/checkUser/checkUser';
 import { logoutUser } from './model/services/logout/logout';
 import userReducer, { setAuthData, setLoading, setError } from './model/slice/userSlice';
 import { User, UserSchema } from './model/types/user';
@@ -10,4 +11,5 @@ export {
     setLoading,
     setError,
     logoutUser,
+    checkUser,
 }

@@ -1,22 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setAuthData, User } from "entities/User";
 import { $api } from "shared/api/api";
+import { TOKEN_LOCAL_KEY, USER_LOCAL_KEY } from "shared/const/localstorage";
 
-interface CheckUserError {
-    errorMessage: string;
-}
-
-export const checkUser = createAsyncThunk<User, void, { rejectValue: CheckUserError }>(
-    'checkUser',
+export const checkUser = createAsyncThunk(
+    'user/checkUser',
     async (_, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.get('/user/checkUser');
-            if (response.data.error) throw new Error(response.data.error);
+            const response = await $api.get('/user/refresh');
+            localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data.user));
+            localStorage.setItem(TOKEN_LOCAL_KEY, response.data.accessToken);
             dispatch(setAuthData(response.data));
-        } catch (error) {
-            return rejectWithValue({
-                errorMessage: error.message || 'something wrong'
-            })
+        } catch (error: any) {
+            if (error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue({ message: 'An unknown error occurred' });
         }
     }
 )
