@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User, UserSchema } from '../types/user';
 import { logoutUser } from '../services/logout/logout';
 import { checkUser } from '../services/checkUser/checkUser';
+import { TOKEN_LOCAL_KEY, USER_LOCAL_KEY } from 'shared/const/localstorage';
 
 const initialState: UserSchema = {
     authData: null,
@@ -31,6 +32,9 @@ export const userSlice = createSlice({
             state.error = null;
         });
         builder.addCase(logoutUser.fulfilled, (state) => {
+            state.authData = null;
+            localStorage.removeItem(USER_LOCAL_KEY);
+            localStorage.removeItem(TOKEN_LOCAL_KEY);
             state.isLoading = false;
         });
         builder.addCase(logoutUser.rejected, (state, action: PayloadAction<any>) => {
@@ -41,8 +45,12 @@ export const userSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         });
-        builder.addCase(checkUser.fulfilled, (state) => {
+        builder.addCase(checkUser.fulfilled, (state, action: PayloadAction<{ user: User, accessToken: string }>) => {
+            const { user, accessToken } = action.payload;
             state.isLoading = false;
+            state.authData = user;
+            localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(user));
+            localStorage.setItem(TOKEN_LOCAL_KEY, accessToken);
         });
         builder.addCase(checkUser.rejected, (state, action: PayloadAction<any>) => {
             state.isLoading = false;

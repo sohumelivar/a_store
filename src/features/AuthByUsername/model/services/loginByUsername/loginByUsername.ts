@@ -23,7 +23,7 @@ export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, { re
             dispatch(setAuthData(response.data.user));
             dispatch(setUsername(''));
             dispatch(setPassword(''));
-            return response.data;
+            return response.data.user;
         } catch (error: any) {
             if (error.response) {
                 return rejectWithValue(error.response.data);
