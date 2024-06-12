@@ -5,6 +5,8 @@ import { loginReducer, modalReducer } from 'features/AuthByUsername';
 import { profileReducer } from 'entities/Profile';
 import { itemReducer, itemsReducer } from 'entities/Items';
 import { registrationReducer } from 'features/Registration';
+import { addItemReducer } from 'features/ItemFeatures/AddItem';
+
 
 
 export const store = configureStore<StateSchema>({
@@ -15,6 +17,7 @@ export const store = configureStore<StateSchema>({
         profile: profileReducer,
         items: itemsReducer,
         item: itemReducer,
+        addItem: addItemReducer,
         modal: modalReducer,
     },
     devTools: __IS_DEV__,

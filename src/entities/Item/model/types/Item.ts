@@ -5,6 +5,6 @@ export interface Item {
     description?: string;
     price?: number;
     photo?: string[];
-    onEdit: boolean;
-    isFavorite: boolean;
+    onEdit?: boolean;
+    isFavorite?: boolean;
 }

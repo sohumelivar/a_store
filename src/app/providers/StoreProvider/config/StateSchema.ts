@@ -2,6 +2,7 @@ import { ItemsState, ItemState } from "entities/Items";
 import { ProfileSchema } from "entities/Profile";
 import { UserSchema } from "entities/User";
 import { LoginSchema, ModalSchema } from "features/AuthByUsername";
+import { AddItemSchema } from "features/ItemFeatures/AddItem";
 import { RegistrationSchema } from "features/Registration";
 
 export interface StateSchema {
@@ -11,5 +12,6 @@ export interface StateSchema {
     profile: ProfileSchema;
     items: ItemsState;
     item: ItemState;
+    addItem: AddItemSchema;
     modal: ModalSchema;
 }

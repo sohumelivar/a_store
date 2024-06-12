@@ -16,7 +16,7 @@ const AddItemPage = memo(({ className }: AddItemPageProps) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        AddItemAPI(formState);
+        // AddItemAPI(formState);
         console.log('разместить объявление --- >>> ');
     };
 

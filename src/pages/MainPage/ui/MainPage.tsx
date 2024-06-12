@@ -14,11 +14,11 @@ interface MainPageProps {
 
 const MainPage = memo(({className}: MainPageProps) => {
     const { t } = useTranslation();
-    const { items, isLoading, error } = useSelector((state: RootState) => state.items);
+    // const { items, isLoading, error } = useSelector((state: RootState) => state.items);
 
     return (
       <div className={classNames(cls.MainPage, {}, [className])}>
-        <ItemsWrapper items={items} />
+        {/* <ItemsWrapper items={items} /> */}
       </div>
     )
 });
