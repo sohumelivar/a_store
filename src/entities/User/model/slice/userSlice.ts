@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User, UserSchema } from '../types/user';
-import { USER_LOCAL_KEY } from 'shared/const/localstorage';
 import { logoutUser } from '../services/logout/logout';
 import { checkUser } from '../services/checkUser/checkUser';
 
