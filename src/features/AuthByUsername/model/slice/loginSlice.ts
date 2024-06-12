@@ -35,6 +35,8 @@ export const loginSlice = createSlice({
         });
         builder.addCase(loginByUsername.rejected, (state, action) => {
             state.isLoading = false;
+            state.username = '';
+            state.password = '';
             state.error = action.payload ? action.payload.message : 'Unknown error';
         });
     },
