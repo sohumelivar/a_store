@@ -1,5 +1,6 @@
 import { ProtectedRoute } from "app/providers/router"
 import { ProtectedRouteAuth } from "app/providers/router/helpers/ProtectedRouteAuth"
+import { AddItemPage } from "features/ItemFeatures/AddItem"
 import { RegistrationPage } from "features/Registration"
 import { AboutPage } from "pages/AboutPage"
 import { ItemPage } from "pages/ItemPage/ui/ItemPage"
@@ -8,7 +9,6 @@ import { NotFoundPage } from "pages/NotFoundPage"
 import { ProfilePage } from "pages/ProfilePage"
 import { TestPage } from "pages/TestPage/TestPage"
 import { RouteProps } from "react-router-dom"
-import { AddItemPage } from "widgets/AddItem"
 
 export enum AppRoutes {
     ALL = 'all',
