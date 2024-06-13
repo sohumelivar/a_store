@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AddItemSchema } from "../types/AddItemSchema";
+import { addItem } from "../services/addItem";
 
 const initialState: AddItemSchema = {
     item: {
@@ -7,7 +8,6 @@ const initialState: AddItemSchema = {
         category: '',
         description: '',
         price: null,
-        photo: [],
         onEdit: false,
         isFavorite: false,
     },
@@ -32,9 +32,6 @@ export const addItemSlice = createSlice({
         setPrice: (state, action: PayloadAction<number>) => {
             state.item.price = action.payload;
         },
-        setPhoto: (state, action: PayloadAction<string[]>) => {
-            state.item.photo = action.payload;
-        },
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
         },
@@ -44,18 +41,30 @@ export const addItemSlice = createSlice({
         setUserId: (state, action: PayloadAction<number>) => {
             state.userId = action.payload;
         },
-    }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(addItem.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        });
+        builder.addCase(addItem.fulfilled, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(addItem.rejected, (state, action: PayloadAction<any>) => {
+            state.isLoading = false;
+            state.error = action.payload?.message || 'An unknown error occurred';
+        });
+    },
 });
 
-export const { 
+export const {
     setItemName,
     setCategory,
     setDescription,
     setPrice,
-    setPhoto,
     setLoading,
     setError,
     setUserId,
- } = addItemSlice.actions;
+} = addItemSlice.actions;
 
 export default addItemSlice.reducer;
