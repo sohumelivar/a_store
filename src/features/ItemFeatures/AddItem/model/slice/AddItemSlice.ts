@@ -48,6 +48,12 @@ export const addItemSlice = createSlice({
             state.error = null;
         });
         builder.addCase(addItem.fulfilled, (state) => {
+            state.item.itemName = '';
+            state.item.category = '';
+            state.item.description = '';
+            state.item.price = null;
+            state.error = null;
+            state.userId = null;
             state.isLoading = false;
         });
         builder.addCase(addItem.rejected, (state, action: PayloadAction<any>) => {
