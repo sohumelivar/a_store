@@ -15,6 +15,7 @@ import { addItem } from '../model/services/addItem';
 import { MAX_FILE_SIZE } from 'shared/const/otherVariables';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'shared/ui/Buton/Button';
+import { validateForm } from '../lib/validateForm';
 
 interface AddItemPageProps {
     className?: string;
@@ -26,8 +27,8 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
     const navigate = useNavigate();
     const [photos, setPhotos] = useState<File[]>([]);
     const photoInputRefs = useRef<HTMLInputElement[]>([]);
-
     const [photoInputs, setPhotoInputs] = useState<string[]>([uuidv4()]);
+    const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     const onChangeItemName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setItemName(event.target.value));
@@ -76,19 +77,24 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
 
     const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData();
-        if (photos) {
-            photos.forEach((photo, index) => {
-                formData.append(`photo${index}`, photo);
-            });
-        }
-        if (addItemForm.item.itemName) formData.append('itemName', addItemForm.item.itemName);
-        if (addItemForm.item.category) formData.append('category', addItemForm.item.category);
-        if (addItemForm.item.description) formData.append('description', addItemForm.item.description);
-        if (addItemForm.item.price) formData.append('price', addItemForm.item.price.toString());
-        const resultAction = await dispatch(addItem(formData));
-        if (addItem.fulfilled.match(resultAction)) {
-            navigate('/');
+        const errors = validateForm(addItemForm.item)
+        if (errors.length > 0) {
+            setErrorMessages(errors);
+        } else {
+            const formData = new FormData();
+            if (photos) {
+                photos.forEach((photo, index) => {
+                    formData.append(`photo${index}`, photo);
+                });
+            }
+            if (addItemForm.item.itemName) formData.append('itemName', addItemForm.item.itemName);
+            if (addItemForm.item.category) formData.append('category', addItemForm.item.category);
+            if (addItemForm.item.description) formData.append('description', addItemForm.item.description);
+            if (addItemForm.item.price) formData.append('price', addItemForm.item.price.toString());
+            const resultAction = await dispatch(addItem(formData));
+            if (addItem.fulfilled.match(resultAction)) {
+                navigate('/');
+            }
         }
     }, [navigate, dispatch, photos, addItemForm.item]);
 
@@ -114,6 +120,18 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                 )}
             </div>
             {addItemForm.error && <div className={cls.error}>{addItemForm.error}</div>}
+            {errorMessages.length > 0 && (
+                    <div className={cls.errorMessages}>
+                        {errorMessages.map((error, index) => (
+                            <div 
+                                key={index}
+                                className={cls.error}
+                            >
+                                {error}
+                            </div>
+                        ))}
+                    </div>
+                )}
             <Button type="submit" className={cls.submitButton}>Разместить объявление</Button>
         </form>
     );
