@@ -1,6 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './AddItemPage.module.scss';
-import { Button } from 'shared/ui/Buton/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useNavigate } from 'react-router-dom';
@@ -9,25 +8,26 @@ import {
     setCategory,
     setDescription,
     setPrice,
-    setUserId,
+    setError,
 } from '../model/slice/AddItemSlice';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { addItem } from '../model/services/addItem';
+import { MAX_FILE_SIZE } from 'shared/const/otherVariables';
+import { v4 as uuidv4 } from 'uuid';
+import { Button } from 'shared/ui/Buton/Button';
 
 interface AddItemPageProps {
-   className?: string;
-};
+    className?: string;
+}
 
 export const AddItemPage = ({ className }: AddItemPageProps) => {
     const addItemForm = useSelector((state: RootState) => state.addItem);
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
     const [photos, setPhotos] = useState<File[]>([]);
-    console.log('⚛ --- ⚛ --- ⚛ --- ⚛ ---  >>> ☢ AddItemPage ☢ photos:', photos)
+    const photoInputRefs = useRef<HTMLInputElement[]>([]);
 
-    const [photoInputs, setPhotoInputs] = useState<number[]>([0]);
-    console.log('⚛ --- ⚛ --- ⚛ --- ⚛ ---  >>> ☢ AddItemPage ☢ photoInputs:', photoInputs)
-
+    const [photoInputs, setPhotoInputs] = useState<string[]>([uuidv4()]);
 
     const onChangeItemName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setItemName(event.target.value));
@@ -45,30 +45,43 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
         dispatch(setPrice(Number(event.target.value)));
     }, [dispatch]);
 
-    const handlePhotoChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePhotoChange = useCallback((index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setError(null));
         if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            if (file.size > MAX_FILE_SIZE) {
+                dispatch(setError('File size exceeds 2MB'));
+                if (photoInputRefs.current[index]) {
+                    photoInputRefs.current[index].value = '';
+                }
+                return;
+            }
             const newPhotos = [...photos];
             newPhotos[index] = event.target.files[0];
             setPhotos(newPhotos);
         }
-    };
+    }, [photos, dispatch]);
 
-    const addPhotoInput = () => {
+    const addPhotoInput = useCallback(() => {
         if (photoInputs.length < 5) {
-            setPhotoInputs([...photoInputs, photoInputs.length]);
+            setPhotoInputs([...photoInputs, uuidv4()]);
         }
-    };
+    }, [photoInputs]);
+
+    const removePhoto = useCallback((index: number) => {
+        const newPhotos = photos.filter((_, idx) => idx !== index);
+        setPhotos(newPhotos);
+        setPhotoInputs(photoInputs.filter((_, idx) => idx !== index));
+    }, [photos, photoInputs]);
 
     const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const userId = JSON.parse(localStorage.getItem('user')).id
         const formData = new FormData();
         if (photos) {
             photos.forEach((photo, index) => {
                 formData.append(`photo${index}`, photo);
             });
         }
-        formData.append('userId', userId.toString());
         if (addItemForm.item.itemName) formData.append('itemName', addItemForm.item.itemName);
         if (addItemForm.item.category) formData.append('category', addItemForm.item.category);
         if (addItemForm.item.description) formData.append('description', addItemForm.item.description);
@@ -77,28 +90,31 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
         if (addItem.fulfilled.match(resultAction)) {
             navigate('/');
         }
-    }, [navigate]);
+    }, [navigate, dispatch, photos, addItemForm.item]);
 
     return (
         <form onSubmit={handleSubmit} className={classNames(cls.AddItemPage, {}, [className])}>
             <div className={cls.inputsWrapper}>
-                <input onChange={onChangeItemName} name="itemName" value={addItemForm.item.itemName} type="text" placeholder="Введите название товара"/>
-                <input onChange={onChangeCategory} name="category" value={addItemForm.item.category} type="text" placeholder="Введите категорию"/>
-                <input onChange={onChangeDescription} name="description" value={addItemForm.item.description} type="text" placeholder="Введите описание товара"/>
-                <input onChange={onChangePrice} name="price" value={addItemForm.item.price || ''} type="number" placeholder="Введите цену товара"/>
+                <input onChange={onChangeItemName} name="itemName" value={addItemForm.item.itemName} type="text" placeholder="Введите название товара" required/>
+                <input onChange={onChangeCategory} name="category" value={addItemForm.item.category} type="text" placeholder="Введите категорию" required/>
+                <input onChange={onChangeDescription} name="description" value={addItemForm.item.description} type="text" placeholder="Введите описание товара" required/>
+                <input onChange={onChangePrice} name="price" value={addItemForm.item.price || ''} type="number" placeholder="Введите цену товара" required/>
                 {photoInputs.map((inputIndex, idx) => (
-                <div key={inputIndex}>
-                    <input
-                        type="file"
-                        onChange={(event) => handlePhotoChange(idx, event)}
-                    />
-                </div>
+                    <div key={inputIndex} className={cls.fileInputWrapper}>
+                        <input
+                            type="file"
+                            onChange={(event) => handlePhotoChange(idx, event)}
+                            ref={el => photoInputRefs.current[idx] = el as HTMLInputElement}
+                        />
+                        <button type="button" onClick={() => removePhoto(idx)}>Удалить фото</button>
+                    </div>
                 ))}
                 {photoInputs.length < 5 && (
-                    <button type="button" onClick={addPhotoInput}>Добавить фото</button>
+                    <button type="button" className={cls.addPhotoButton} onClick={addPhotoInput}>Добавить фото</button>
                 )}
             </div>
-            <Button type="submit">Разместить объявление</Button>
+            {addItemForm.error && <div className={cls.error}>{addItemForm.error}</div>}
+            <Button type="submit" className={cls.submitButton}>Разместить объявление</Button>
         </form>
     );
 };
