@@ -84,7 +84,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
             const formData = new FormData();
             if (photos) {
                 photos.forEach((photo, index) => {
-                    formData.append(`photo${index}`, photo);
+                    formData.append(`photo`, photo);
                 });
             }
             if (addItemForm.item.itemName) formData.append('itemName', addItemForm.item.itemName);
@@ -112,7 +112,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                             onChange={(event) => handlePhotoChange(idx, event)}
                             ref={el => photoInputRefs.current[idx] = el as HTMLInputElement}
                         />
-                        <button type="button" onClick={() => removePhoto(idx)}>Удалить фото</button>
+                        <button type="button" disabled={addItemForm.isLoading} onClick={() => removePhoto(idx)}>Удалить фото</button>
                     </div>
                 ))}
                 {photoInputs.length < 5 && (
@@ -132,7 +132,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                         ))}
                     </div>
                 )}
-            <Button type="submit" className={cls.submitButton}>Разместить объявление</Button>
+            <Button type="submit" disabled={addItemForm.isLoading} className={cls.submitButton}>Разместить объявление</Button>
         </form>
     );
 };
