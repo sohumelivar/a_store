@@ -6,7 +6,6 @@ import { Navbar } from "widgets/Navbar";
 import { Suspense, useEffect } from "react";
 import { AppDispatch } from "./providers/StoreProvider";
 import { useDispatch } from "react-redux";
-import { getItemsAll } from "entities/Items";
 import { checkUser } from "entities/User";
 
 const App = () => {
@@ -15,7 +14,6 @@ const App = () => {
     
     useEffect(() => {
         const initializeApp = async () => {
-            await dispatch(getItemsAll());
             await dispatch(checkUser());
         };
         initializeApp();

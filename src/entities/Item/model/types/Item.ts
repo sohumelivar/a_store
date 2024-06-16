@@ -6,4 +6,11 @@ export interface Item {
     price?: number;
     onEdit?: boolean;
     isFavorite?: boolean;
+    photos?: string[];
+}
+
+export interface ItemSchema {
+    item: Item | null;
+    isLoading: boolean;
+    error: string | null;
 }

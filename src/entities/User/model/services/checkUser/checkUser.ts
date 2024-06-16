@@ -1,7 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setAuthData, User } from "entities/User";
 import { $api } from "shared/api/api";
-import { TOKEN_LOCAL_KEY, USER_LOCAL_KEY } from "shared/const/localstorage";
 
 export const checkUser = createAsyncThunk(
     'user/checkUser',

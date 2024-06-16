@@ -1,20 +1,10 @@
-import { getItemsAll } from "./model/services/getItemsAll";
-import { getItemWithId } from "./model/services/getItemWithId";
-import { ItemSchema } from "./model/types/ItemSchema";
-import { ItemsSchema } from "./model/types/ItemsSchema";
-import itemsReducer, { ItemsState } from "./model/slice/ItemsSlice";
-import itemReducer, { ItemState, setItem } from "./model/slice/ItemSlice";
-import { toggleStateFavorite } from "./model/services/toggleStateFavorite";
+import { ItemsSchema } from "./model/types/items";
+import { getItems } from "./model/services/getItems";
+import itemsReducer, { setPage } from './model/slice/ItemsSlice';
 
 export {
-    ItemSchema,
     ItemsSchema,
-    getItemsAll,
+    getItems,
     itemsReducer,
-    ItemsState,
-    getItemWithId,
-    itemReducer,
-    ItemState,
-    toggleStateFavorite,
-    setItem,
+    setPage,
 }

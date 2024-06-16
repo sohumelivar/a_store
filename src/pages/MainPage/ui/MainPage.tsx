@@ -1,24 +1,40 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './MainPage.module.scss';
-import { useTranslation } from 'react-i18next';
-import { ItemsWrapper } from 'widgets/ItemCard';
-import { DropdownElement } from 'shared/ui/DropdownElement';
-import { Text } from 'shared/ui/Text/Text';
-import { useSelector } from 'react-redux';
-import { RootState } from 'app/providers/StoreProvider';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
+import { AppDispatch, RootState } from 'app/providers/StoreProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import { getItems, setPage } from 'entities/Items';
+import { ItemList } from 'shared/ui/ItemList/ItemList';
 
 interface MainPageProps {
    className?: string;
 };
 
 const MainPage = memo(({className}: MainPageProps) => {
-    const { t } = useTranslation();
-    // const { items, isLoading, error } = useSelector((state: RootState) => state.items);
+    const dispatch: AppDispatch = useDispatch();
+    const { items, currentPage, totalPages, isLoading, error } = useSelector((state: RootState) => state.items);
+
+    useEffect(() => {
+      dispatch(getItems(currentPage));
+    }, [dispatch, currentPage]);
+
+    const handleNextPage = () => {
+      if (currentPage < totalPages) {
+          dispatch(setPage(currentPage + 1));
+      }
+    };
+
+    const handlePreviousPage = () => {
+      if (currentPage > 1) {
+          dispatch(setPage(currentPage - 1));
+      }
+    };
 
     return (
       <div className={classNames(cls.MainPage, {}, [className])}>
-        {/* <ItemsWrapper items={items} /> */}
+          <ItemList items={items} isLoading={isLoading} error={error} />
+          <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
       </div>
     )
 });

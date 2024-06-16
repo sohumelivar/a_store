@@ -108,15 +108,16 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                 {photoInputs.map((inputIndex, idx) => (
                     <div key={inputIndex} className={cls.fileInputWrapper}>
                         <input
+                            disabled={addItemForm.isLoading}
                             type="file"
                             onChange={(event) => handlePhotoChange(idx, event)}
                             ref={el => photoInputRefs.current[idx] = el as HTMLInputElement}
                         />
-                        <button type="button" disabled={addItemForm.isLoading} onClick={() => removePhoto(idx)}>Удалить фото</button>
+                        <Button type="button" disabled={addItemForm.isLoading} onClick={() => removePhoto(idx)}>Удалить фото</Button>
                     </div>
                 ))}
                 {photoInputs.length < 5 && (
-                    <button type="button" className={cls.addPhotoButton} onClick={addPhotoInput}>Добавить фото</button>
+                    <Button type="button" disabled={addItemForm.isLoading} className={cls.addPhotoButton} onClick={addPhotoInput}>Добавить фото</Button>
                 )}
             </div>
             {addItemForm.error && <div className={cls.error}>{addItemForm.error}</div>}
