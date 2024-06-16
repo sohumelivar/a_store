@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems, setPage } from 'entities/Items';
 import { ItemList } from 'shared/ui/ItemList/ItemList';
+import { Pagination } from 'shared/ui/Pagination/Pagination';
 
 interface MainPageProps {
    className?: string;
@@ -18,23 +19,22 @@ const MainPage = memo(({className}: MainPageProps) => {
       dispatch(getItems(currentPage));
     }, [dispatch, currentPage]);
 
-    const handleNextPage = () => {
-      if (currentPage < totalPages) {
-          dispatch(setPage(currentPage + 1));
+    const handlePageChange = (page: number) => {
+      if (page >= 1 && page <= totalPages) {
+          dispatch(setPage(page));
       }
-    };
-
-    const handlePreviousPage = () => {
-      if (currentPage > 1) {
-          dispatch(setPage(currentPage - 1));
-      }
-    };
+  };
 
     return (
       <div className={classNames(cls.MainPage, {}, [className])}>
           <ItemList items={items} isLoading={isLoading} error={error} />
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+          {items.length > 0 && (
+                <Pagination 
+                    currentPage={currentPage} 
+                    totalPages={totalPages} 
+                    onPageChange={handlePageChange} 
+                />
+            )}
       </div>
     )
 });

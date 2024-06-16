@@ -32,7 +32,7 @@ export const ImageBlock = ({className, images, maxWidthHeight, imageHeight}: Ima
       <div className={classNames(cls.ImageBlockWrapper, {}, [cls[maxWidthHeight]])}>
         <img
             className={classNames(cls.imageBlock, {}, [cls[imageHeight]])}
-            src={images[currentIndex]}
+            src={`http://localhost:5000/itemsPhotos/${images[currentIndex]}`}
             alt={`Image ${currentIndex + 1}`}
         />
         <div className={cls.counter}>
