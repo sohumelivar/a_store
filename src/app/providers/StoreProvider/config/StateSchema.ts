@@ -1,4 +1,5 @@
-import { ItemsState, ItemState } from "entities/Items";
+import { ItemSchema } from "entities/Item";
+import { ItemsSchema } from "entities/Items";
 import { ProfileSchema } from "entities/Profile";
 import { UserSchema } from "entities/User";
 import { LoginSchema, ModalSchema } from "features/AuthByUsername";
@@ -10,8 +11,8 @@ export interface StateSchema {
     loginForm: LoginSchema;
     registrationForm: RegistrationSchema;
     profile: ProfileSchema;
-    items: ItemsState;
-    item: ItemState;
+    item: ItemSchema;
+    items: ItemsSchema;
     addItem: AddItemSchema;
     modal: ModalSchema;
 }

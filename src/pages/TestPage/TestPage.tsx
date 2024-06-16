@@ -1,6 +1,5 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './TestPage.module.scss';
-import { ItemCard } from 'widgets/ItemCard';
 
 interface TestPageProps {
    className?: string;

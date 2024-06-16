@@ -3,7 +3,6 @@ import cls from './FavoriteBtn.module.scss';
 import { FC, memo, useCallback, useState } from 'react';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleStateFavorite } from 'entities/Items';
 import { setIsAuthModal } from 'features/AuthByUsername';
 
 interface FavoriteBtn {
@@ -25,7 +24,6 @@ export const FavoriteBtn: FC<FavoriteBtn> = memo((props) => {
         event.stopPropagation();
         // dispatch(initAuthData());
         if (authData) {
-            dispatch(toggleStateFavorite({userId: Number(authData.id), itemId}))
             return setIsActive(current => !current);
         }
         dispatch(setIsAuthModal(true));

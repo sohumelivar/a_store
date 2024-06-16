@@ -1,12 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Item } from "../types/Item";
+import { Item, ItemSchema } from "../types/Item";
 import { getItem } from "../services/getItem";
-
-export interface ItemSchema {
-    item: Item | null;
-    isLoading: boolean;
-    error: string | null;
-}
 
 const initialState: ItemSchema = {
     item: null,
@@ -24,7 +18,6 @@ export const itemSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getItem.pending, (state) => {
-            state.error = 'Подождите ...';
             state.isLoading = true;
         });
         builder.addCase(getItem.fulfilled, (state, action: PayloadAction<Item>) => {
