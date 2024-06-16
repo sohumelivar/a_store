@@ -6,7 +6,7 @@ export const getItems = createAsyncThunk<ItemsResponse, number, { rejectValue: g
     'items/fetchItems',
     async (page: number, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.get(`/items?page=${page}`);
+            const response = await $api.get(`/items/items?page=${page}`);
             return response.data;
         } catch (error: any) {
             if (error.response) {
