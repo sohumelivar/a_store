@@ -5,6 +5,7 @@ import { UserSchema } from "entities/User";
 import { LoginSchema, ModalSchema } from "features/AuthByUsername";
 import { AddItemSchema } from "features/ItemFeatures/AddItem";
 import { RegistrationSchema } from "features/Registration";
+import { ToggleFavoriteState } from "widgets/ToggleFavorite";
 
 export interface StateSchema {
     user: UserSchema;
@@ -13,6 +14,7 @@ export interface StateSchema {
     profile: ProfileSchema;
     item: ItemSchema;
     items: ItemsSchema;
+    toggleFavorite: ToggleFavoriteState;
     addItem: AddItemSchema;
     modal: ModalSchema;
 }
