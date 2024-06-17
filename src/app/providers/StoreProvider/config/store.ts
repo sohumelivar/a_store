@@ -7,6 +7,7 @@ import { registrationReducer } from 'features/Registration';
 import { addItemReducer } from 'features/ItemFeatures/AddItem';
 import { itemReducer } from 'entities/Item';
 import { itemsReducer } from 'entities/Items';
+import { toggleFavoriteReducer } from 'widgets/ToggleFavorite';
 
 
 
@@ -18,6 +19,7 @@ export const store = configureStore<StateSchema>({
         profile: profileReducer,
         item: itemReducer,
         items: itemsReducer,
+        toggleFavorite: toggleFavoriteReducer,
         addItem: addItemReducer,
         modal: modalReducer,
     },

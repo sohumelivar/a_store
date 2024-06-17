@@ -5,6 +5,7 @@ import { ImageBlock, ImageSizeSchema } from '../ImageBlock';
 import { Loader } from '../Loader/Loader';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { getItemsErrors } from 'entities/Items/model/types/items';
+import { ToggleFavorite } from 'widgets/ToggleFavorite';
 
 interface ItemListProps {
     items: Item[];
@@ -30,6 +31,7 @@ export const ItemList = memo(({ items, isLoading, error, className }: ItemListPr
         <div className={classNames(cls.itemList)}>
             {items.map((item) => (
                 <div key={item.id} className={classNames(cls.item)}>
+                    <ToggleFavorite item={item} />
                     <h3>{item.itemName}</h3>
                     <h3>{item.category}</h3>
                     <h3>{item.description}</h3>
