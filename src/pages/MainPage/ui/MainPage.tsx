@@ -27,7 +27,7 @@ const MainPage = memo(({className}: MainPageProps) => {
 
     return (
       <div className={classNames(cls.MainPage, {}, [className])}>
-          <ItemList items={items} isLoading={isLoading} error={error} />
+          <ItemList items={items} error={error} />
           {items.length > 0 && (
                 <Pagination 
                     currentPage={currentPage} 

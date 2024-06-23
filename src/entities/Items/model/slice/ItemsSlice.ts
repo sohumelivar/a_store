@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { getItemsErrors, ItemsSchema } from "../types/items";
 import { getItems } from "../services/getItems";
+import { toggleFavorite } from "widgets/ToggleFavorite";
 
 const initialState: ItemsSchema = {
     items: [],
@@ -17,6 +18,9 @@ const itemsSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload;
         },
+        setItems: (state, action: PayloadAction<[]>) => {
+            state.items = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getItems.pending, (state) => {
@@ -32,9 +36,16 @@ const itemsSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         });
+        builder.addCase(toggleFavorite.fulfilled, (state, action: PayloadAction<number>) => {
+            const itemId = action.payload;
+            const item = state.items.find(item => item.id === itemId);
+            if (item) {
+                item.isFavorite = !item.isFavorite;
+            }
+        });
     },
 });
 
-export const { setPage } = itemsSlice.actions;
+export const { setPage, setItems } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

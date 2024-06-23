@@ -33,8 +33,6 @@ export const userSlice = createSlice({
         });
         builder.addCase(logoutUser.fulfilled, (state) => {
             state.authData = null;
-            localStorage.removeItem(USER_LOCAL_KEY);
-            localStorage.removeItem(TOKEN_LOCAL_KEY);
             state.isLoading = false;
         });
         builder.addCase(logoutUser.rejected, (state, action: PayloadAction<any>) => {
@@ -47,10 +45,10 @@ export const userSlice = createSlice({
         });
         builder.addCase(checkUser.fulfilled, (state, action: PayloadAction<{ user: User, accessToken: string }>) => {
             const { user, accessToken } = action.payload;
-            state.isLoading = false;
-            state.authData = user;
             localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(user));
             localStorage.setItem(TOKEN_LOCAL_KEY, accessToken);
+            state.isLoading = false;
+            state.authData = user;
         });
         builder.addCase(checkUser.rejected, (state, action: PayloadAction<any>) => {
             state.isLoading = false;
