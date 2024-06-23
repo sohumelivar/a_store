@@ -3,7 +3,6 @@ import cls from './ToggleFavorite.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { Item } from 'entities/Item';
-import { Loader } from 'shared/ui/Loader/Loader';
 import { toggleFavorite } from '../model/services/toggleFavorite';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { setIsAuthModal } from 'features/AuthByUsername';
@@ -16,7 +15,6 @@ interface ToggleFavoriteProps {
 export const ToggleFavorite = memo(({ item, className }: ToggleFavoriteProps) => {
     const dispatch: AppDispatch = useDispatch();
     const { authData } = useSelector((state: RootState) => state.user);
-    const { isLoading } = useSelector((state: RootState) => state.toggleFavorite);
 
     const handleToggleFavorite = useCallback(() => {
         if (authData) {

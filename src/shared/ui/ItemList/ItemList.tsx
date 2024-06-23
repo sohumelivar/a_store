@@ -7,6 +7,7 @@ import { getItemsErrors } from 'entities/Items/model/types/items';
 import { ToggleFavorite } from 'widgets/ToggleFavorite';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/providers/StoreProvider';
+import { DeleteItemBtn, DeleteItemModal } from 'features/ItemFeatures/DeleteItem';
 
 interface ItemListProps {
     items: Item[];
@@ -17,6 +18,8 @@ interface ItemListProps {
 export const ItemList = memo(({ items, error, className }: ItemListProps) => {
 
     const { isLoading } = useSelector((state: RootState) => state.toggleFavorite);
+    const { isDeleteModal } = useSelector((state: RootState) => state.deleteItemBtnModal);
+
 
     if (error) {
         return <p>Error: {error.toString()}</p>;
@@ -36,6 +39,10 @@ export const ItemList = memo(({ items, error, className }: ItemListProps) => {
                     <h3>{item.description}</h3>
                     <h3>{item.price}</h3>
                     <ImageBlock images={item.photos} maxWidthHeight={ImageSizeSchema.maxWH_S} imageHeight={ImageSizeSchema.IH_S}/>
+                    {item.onEdit && <DeleteItemBtn itemId={item.id} />}
+                    <DeleteItemModal 
+                        isOpen={isDeleteModal}
+                    />
                 </div>
             ))}
         </div>
