@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const $api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'http://localhost:5001/api',
     withCredentials: true,
 });
 
@@ -24,7 +24,7 @@ $api.interceptors.response.use((config) => {
     try {
         const originalRequest = error.config;
         if (error.response.status === 401) {
-            const response = await axios.get('http://localhost:5000/api/user/refresh', { withCredentials: true });
+            const response = await axios.get('http://localhost:5001/api/user/refresh', { withCredentials: true });
             localStorage.setItem('token', response.data.accessToken);
             return $api.request(originalRequest);
         } else if (error.response.status === 400) {

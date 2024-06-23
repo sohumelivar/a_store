@@ -7,12 +7,12 @@ interface ToggleFavoriteParams {
     itemId: number;
 }
 
-export const toggleFavorite = createAsyncThunk<Item, ToggleFavoriteParams, { rejectValue: { message: string } }>(
+export const toggleFavorite = createAsyncThunk<number, ToggleFavoriteParams, { rejectValue: { message: string } }>(
     'items/toggleFavorite',
     async ({ userId, itemId }, { rejectWithValue }) => {
         try {
             const response = await $api.post('/items/toggleFavorite', { userId, itemId });
-            return response.data;
+            return itemId;
         } catch (error: any) {
             if (error.response) {
                 return rejectWithValue({ message: error.response.data.message });

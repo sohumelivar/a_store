@@ -3,6 +3,7 @@ import { setAuthData, User } from "entities/User";
 import { TOKEN_LOCAL_KEY, USER_LOCAL_KEY } from "shared/const/localstorage";
 import { $api } from "shared/api/api";
 import { setUsername, setPassword } from 'features/AuthByUsername';
+import { getItems, setPage } from "entities/Items";
 
 interface LoginByUsernameProps {
     username: string;
@@ -20,6 +21,8 @@ export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, { re
             const response = await $api.post('/user/login', { username, password });
             localStorage.setItem(USER_LOCAL_KEY, JSON.stringify(response.data.user));
             localStorage.setItem(TOKEN_LOCAL_KEY, response.data.accessToken);
+            dispatch(getItems(1));
+            dispatch(setPage(1));
             dispatch(setAuthData(response.data.user));
             dispatch(setUsername(''));
             dispatch(setPassword(''));

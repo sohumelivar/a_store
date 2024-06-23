@@ -17,7 +17,8 @@ export const toggleFavoriteSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         });
-        builder.addCase(toggleFavorite.fulfilled, (state, action: PayloadAction<Item>) => {
+        builder.addCase(toggleFavorite.fulfilled, (state, action: PayloadAction<number>) => {
+            const itemId = action.payload;
             state.isLoading = false;
         });
         builder.addCase(toggleFavorite.rejected, (state, action) => {
