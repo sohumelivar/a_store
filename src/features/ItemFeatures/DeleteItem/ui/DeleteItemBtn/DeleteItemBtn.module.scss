@@ -1,0 +1,17 @@
+.DeleteItemBtn {
+    background-color: #ff4d4d;
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+
+    &:hover {
+        background-color: #ff1a1a; 
+    }
+
+    &:active {
+        background-color: #e60000; 
+    }
+}

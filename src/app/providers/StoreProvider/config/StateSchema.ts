@@ -4,6 +4,7 @@ import { ProfileSchema } from "entities/Profile";
 import { UserSchema } from "entities/User";
 import { LoginSchema, ModalSchema } from "features/AuthByUsername";
 import { AddItemSchema } from "features/ItemFeatures/AddItem";
+import { modalDeleteItemBtnSchema } from "features/ItemFeatures/DeleteItem";
 import { RegistrationSchema } from "features/Registration";
 import { ToggleFavoriteState } from "widgets/ToggleFavorite";
 
@@ -17,4 +18,5 @@ export interface StateSchema {
     toggleFavorite: ToggleFavoriteState;
     addItem: AddItemSchema;
     modal: ModalSchema;
+    deleteItemBtnModal: modalDeleteItemBtnSchema;
 }
