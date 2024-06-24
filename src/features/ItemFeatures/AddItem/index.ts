@@ -1,9 +1,11 @@
 import addItemReducer, {
-    setItemName, setCategory, setDescription, setPrice, setLoading, setError, setUserId
+    setItemName, setCategory, setDescription, setPrice, setLoading, setError, setUserId,
+    resetForm
 } from "./model/slice/AddItemSlice";
 import { AddItemSchema } from "./model/types/AddItemSchema";
 import { AddItemPage } from "./ui/AddItemPage";
-AddItemPage
+
+
 export {
     setItemName,
     setCategory,
@@ -14,5 +16,6 @@ export {
     setUserId,
     addItemReducer,
     AddItemSchema,
-    AddItemPage
+    AddItemPage,
+    resetForm,
 }

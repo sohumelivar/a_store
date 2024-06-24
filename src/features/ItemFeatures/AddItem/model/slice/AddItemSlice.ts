@@ -41,6 +41,11 @@ export const addItemSlice = createSlice({
         setUserId: (state, action: PayloadAction<number>) => {
             state.userId = action.payload;
         },
+        resetForm: (state) => {
+            state.item = initialState.item;
+            state.error = initialState.error;
+            state.isLoading = initialState.isLoading;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(addItem.pending, (state) => {
@@ -71,6 +76,7 @@ export const {
     setLoading,
     setError,
     setUserId,
+    resetForm,
 } = addItemSlice.actions;
 
 export default addItemSlice.reducer;
