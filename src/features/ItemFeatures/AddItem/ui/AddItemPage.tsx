@@ -9,8 +9,9 @@ import {
     setDescription,
     setPrice,
     setError,
+    resetForm,
 } from '../model/slice/AddItemSlice';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { addItem } from '../model/services/addItem';
 import { MAX_FILE_SIZE } from 'shared/const/otherVariables';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,6 +30,12 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
     const photoInputRefs = useRef<HTMLInputElement[]>([]);
     const [photoInputs, setPhotoInputs] = useState<string[]>([uuidv4()]);
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetForm());
+        };
+    }, [dispatch]);
 
     const onChangeItemName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setItemName(event.target.value));
@@ -112,6 +119,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                             type="file"
                             onChange={(event) => handlePhotoChange(idx, event)}
                             ref={el => photoInputRefs.current[idx] = el as HTMLInputElement}
+                            required
                         />
                         <Button type="button" disabled={addItemForm.isLoading} onClick={() => removePhoto(idx)}>Удалить фото</Button>
                     </div>
