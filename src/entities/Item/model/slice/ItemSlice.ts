@@ -14,7 +14,7 @@ export const itemSlice = createSlice({
     reducers: {
         setItem: (state, action: PayloadAction<Item>) => {
             state.item = action.payload;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getItem.pending, (state) => {

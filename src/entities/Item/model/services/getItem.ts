@@ -13,9 +13,15 @@ interface getItemError {
 
 export const getItem = createAsyncThunk<Item, getItemProps, { rejectValue: getItemError }>(
     'item/getItem',
-    async (itemData, { rejectWithValue, dispatch }) => {
+    async ({itemId, userId}, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.post('/item/getItem', itemData)
+            if (userId) {
+                const response = await $api.get(`/items/getItem/${itemId}/${userId}`, {
+                    params: {userId},
+                })
+                return response.data;
+            }
+            const response = await $api.get(`/items/getItem/${itemId}`);
             return response.data;
         } catch (error: any) {
             if (error.response) {
