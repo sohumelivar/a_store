@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EditItemSchema } from '../types/editItemSchema';
 import { getItem } from 'entities/Item';
+import { updateItem } from '../services/updateItem';
 
 const initialState: EditItemSchema = {
     itemName: '',
@@ -60,6 +61,17 @@ const editItemSlice = createSlice({
             state.photos = action.payload.photos;
         });
         builder.addCase(getItem.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload ? action.payload.message : 'Unknown error';
+        });
+        builder.addCase(updateItem.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        });
+        builder.addCase(updateItem.fulfilled, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(updateItem.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload ? action.payload.message : 'Unknown error';
         });
