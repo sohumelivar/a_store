@@ -8,6 +8,7 @@ import { ToggleFavorite } from 'widgets/ToggleFavorite';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/providers/StoreProvider';
 import { DeleteItemBtn, DeleteItemModal } from 'features/ItemFeatures/DeleteItem';
+import { EditItemBtn } from 'features/ItemFeatures/EditItem';
 
 interface ItemListProps {
     items: Item[];
@@ -40,6 +41,7 @@ export const ItemList = memo(({ items, error, className }: ItemListProps) => {
                     <h3>{item.price}</h3>
                     <ImageBlock images={item.photos} maxWidthHeight={ImageSizeSchema.maxWH_S} imageHeight={ImageSizeSchema.IH_S}/>
                     {item.onEdit && <DeleteItemBtn itemId={item.id} />}
+                    {item.onEdit && <EditItemBtn itemId={item.id} />}
                     <DeleteItemModal 
                         isOpen={isDeleteModal}
                     />

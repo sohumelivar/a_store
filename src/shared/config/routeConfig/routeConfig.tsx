@@ -1,6 +1,7 @@
 import { ProtectedRoute } from "app/providers/router"
 import { ProtectedRouteAuth } from "app/providers/router/helpers/ProtectedRouteAuth"
 import { AddItemPage } from "features/ItemFeatures/AddItem"
+import { EditItem } from "features/ItemFeatures/EditItem"
 import { RegistrationPage } from "features/Registration"
 import { AboutPage } from "pages/AboutPage"
 import { ItemPage } from "pages/ItemPage/ui/ItemPage"
@@ -18,6 +19,7 @@ export enum AppRoutes {
     REGISTRATION = 'registration',
     ADD_ITEM = 'addItem',
     ITEM_PAGE = 'item_page',
+    EDIT_ITEM_PAGE = 'edit_item_page',
     //LAST
     NOT_FOUND = 'not_found',
 }
@@ -30,6 +32,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.REGISTRATION]: '/registration',
     [AppRoutes.ADD_ITEM]: '/addItem',
     [AppRoutes.ITEM_PAGE]: '/itemPage/:id',
+    [AppRoutes.EDIT_ITEM_PAGE]: '/editItem/:itemId/:userId',
     //LAST
     [AppRoutes.NOT_FOUND]: '*'
 }
@@ -62,6 +65,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.ITEM_PAGE]: {
         path: RoutePath.item_page,
         element: <ItemPage />
+    },
+    [AppRoutes.EDIT_ITEM_PAGE]: {
+        path: RoutePath.edit_item_page,
+        element: <ProtectedRoute><EditItem /></ProtectedRoute>
     },
     //LAST
     [AppRoutes.NOT_FOUND]: {
