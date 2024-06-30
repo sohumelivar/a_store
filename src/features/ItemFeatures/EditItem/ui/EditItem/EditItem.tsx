@@ -10,6 +10,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './EditItem.module.scss';
 import { getItem } from 'entities/Item';
 import { ImageBlock, ImageSizeSchema } from 'shared/ui/ImageBlock';
+import { updateItem } from '../../model/services/updateItem';
+import { validateForm } from '../../lib/validateForm';
 
 interface EditItemProps {
     className?: string;
@@ -25,6 +27,7 @@ export const EditItem = memo(({ className }: EditItemProps) => {
     const photoInputRefs = useRef<HTMLInputElement[]>([]);
     const [photoInputs, setPhotoInputs] = useState<string[]>([uuidv4()]);
     const { itemId, userId } = useParams<{ itemId: string, userId: string }>();
+    const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     useEffect(() => {
         dispatch(getItem({ itemId: Number(itemId), userId: Number(userId) }));
@@ -91,24 +94,32 @@ export const EditItem = memo(({ className }: EditItemProps) => {
 
     const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData();
-        if (photos) {
-            photos.forEach((photo) => {
-                formData.append('photo', photo);
-            });
+        const errors = validateForm(editItemForm);
+        if (errors.length > 0) {
+            setErrorMessages(errors);
+        } else {
+            const formData = new FormData();
+            if (photos) {
+                photos.forEach((photo) => {
+                    formData.append('photo', photo);
+                });
+            }
+            if (editItemForm.itemName) formData.append('itemName', editItemForm.itemName);
+            if (editItemForm.category) formData.append('category', editItemForm.category);
+            if (editItemForm.description) formData.append('description', editItemForm.description);
+            if (editItemForm.price) formData.append('price', editItemForm.price.toString());
+            formData.append('deletedPhotos', JSON.stringify(deletedPhotos));
+            const resultAction = await dispatch(updateItem({formData, itemId, userId}));
+            if (updateItem.fulfilled.match(resultAction)) {
+                navigate('/');
+            }
         }
-        if (editItemForm.itemName) formData.append('itemName', editItemForm.itemName);
-        if (editItemForm.category) formData.append('category', editItemForm.category);
-        if (editItemForm.description) formData.append('description', editItemForm.description);
-        if (editItemForm.price) formData.append('price', editItemForm.price.toString());
-        formData.append('deletedPhotos', JSON.stringify(deletedPhotos));
-        // Добавьте логику для отправки данных на сервер и обновления товара
-    }, [photos, editItemForm, deletedPhotos]);
+    }, [photos, editItemForm, deletedPhotos, dispatch, navigate]);
 
     return (
         <form onSubmit={handleSubmit} className={classNames(cls.EditItem, {}, [className])}>
             <div className={cls.inputsWrapper}>
-                <input onChange={onChangeItemName} name="itemName" value={editItemForm.itemName} type="text" placeholder="Введите название товара" required />
+                <input onChange={onChangeItemName} name="itemName" value={editItemForm.itemName} type="text" placeholder="Введите название товара"  />
                 <input onChange={onChangeCategory} name="category" value={editItemForm.category} type="text" placeholder="Введите категорию" required />
                 <input onChange={onChangeDescription} name="description" value={editItemForm.description} type="text" placeholder="Введите описание товара" required />
                 <input onChange={onChangePrice} name="price" value={editItemForm.price || ''} type="number" placeholder="Введите цену товара" required />
@@ -136,6 +147,18 @@ export const EditItem = memo(({ className }: EditItemProps) => {
                 )}
             </div>
             {editItemForm.error && <div className={cls.error}>{editItemForm.error}</div>}
+            {errorMessages.length > 0 && (
+                    <div className={cls.error}>
+                        {errorMessages.map((error, index) => (
+                            <div 
+                                key={index}
+                                className={cls.error}
+                            >
+                                {error}
+                            </div>
+                        ))}
+                    </div>
+            )}
             <Button type="submit" disabled={editItemForm.isLoading} className={cls.submitButton}>Обновить товар</Button>
         </form>
     );

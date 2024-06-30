@@ -140,7 +140,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                             </div>
                         ))}
                     </div>
-                )}
+            )}
             <Button type="submit" disabled={addItemForm.isLoading} className={cls.submitButton}>Разместить объявление</Button>
         </form>
     );
