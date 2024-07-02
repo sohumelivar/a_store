@@ -14,16 +14,24 @@ interface MainPageProps {
 const MainPage = memo(({className}: MainPageProps) => {
     const dispatch: AppDispatch = useDispatch();
     const { items, currentPage, totalPages, isLoading, error } = useSelector((state: RootState) => state.items);
+    const { authData } = useSelector((state: RootState) => state.user);
+
 
     useEffect(() => {
       dispatch(getItems(currentPage));
-    }, [dispatch, currentPage]);
+    }, [dispatch, currentPage, authData]);
 
     const handlePageChange = (page: number) => {
       if (page >= 1 && page <= totalPages) {
           dispatch(setPage(page));
       }
   };
+
+  const btnHandle = async () => {
+    console.log('tet');
+    
+    dispatch(getItems(currentPage));
+  }
 
     return (
       <div className={classNames(cls.MainPage, {}, [className])}>

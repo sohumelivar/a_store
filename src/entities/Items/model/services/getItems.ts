@@ -6,6 +6,12 @@ export const getItems = createAsyncThunk<ItemsResponse, number, { rejectValue: g
     'items/fetchItems',
     async (page: number, { rejectWithValue, dispatch }) => {
         try {
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                const userId = JSON.parse(userData).id;
+                const response = await $api.get(`/items/itemsAuth?page=${page}`);
+                return response.data;
+            }
             const response = await $api.get(`/items/items?page=${page}`);
             return response.data;
         } catch (error: any) {
