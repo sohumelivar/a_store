@@ -21,7 +21,6 @@ export const ItemList = memo(({ items, error, className }: ItemListProps) => {
     const { isLoading } = useSelector((state: RootState) => state.toggleFavorite);
     const { isDeleteModal } = useSelector((state: RootState) => state.deleteItemBtnModal);
 
-
     if (error) {
         return <p>Error: {error.toString()}</p>;
     }
