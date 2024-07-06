@@ -110,6 +110,10 @@ export const EditItem = memo(({ className }: EditItemProps) => {
             if (editItemForm.price) formData.append('price', editItemForm.price.toString());
             formData.append('deletedPhotos', JSON.stringify(deletedPhotos));
             const resultAction = await dispatch(updateItem({formData, itemId, userId}));
+            if (updateItem.rejected.match(resultAction)) {
+                setDeletedPhotos([]);
+                setExistingPhotos(editItemForm.photos);
+            } 
             if (updateItem.fulfilled.match(resultAction)) {
                 navigate('/');
             }
@@ -147,15 +151,16 @@ export const EditItem = memo(({ className }: EditItemProps) => {
                 )}
             </div>
             {editItemForm.error && <div className={cls.error}>{editItemForm.error}</div>}
+            {editItemForm.errorMessage && <div className={cls.error}>{editItemForm.errorMessage}</div>}
             {errorMessages.length > 0 && (
                     <div className={cls.error}>
                         {errorMessages.map((error, index) => (
-                            <div 
-                                key={index}
-                                className={cls.error}
-                            >
-                                {error}
-                            </div>
+                                <div 
+                                    key={index}
+                                    className={cls.error}
+                                >
+                                    {error}
+                                </div>
                         ))}
                     </div>
             )}

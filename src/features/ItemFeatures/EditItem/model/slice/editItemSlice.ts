@@ -11,6 +11,7 @@ const initialState: EditItemSchema = {
     photos: [],
     isLoading: false,
     error: null,
+    errorMessage: null,
     itemId: null,
 };
 
@@ -74,6 +75,7 @@ const editItemSlice = createSlice({
         builder.addCase(updateItem.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload ? action.payload.message : 'Unknown error';
+            state.errorMessage = action.payload ? action.payload.errors : 'Unknown error';
         });
     },
 });

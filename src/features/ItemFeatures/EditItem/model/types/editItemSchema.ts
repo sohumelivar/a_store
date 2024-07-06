@@ -6,5 +6,6 @@ export interface EditItemSchema {
     photos: string[];
     isLoading: boolean;
     error: string | null;
+    errorMessage?: string | null;
     itemId: number | null;
 }
