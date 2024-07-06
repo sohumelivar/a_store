@@ -8,6 +8,7 @@ interface UpdateItemProps {
 }
 
 interface UpdateItemError {
+    errors?: string;
     message: string;
 }
 
@@ -15,7 +16,6 @@ export const updateItem = createAsyncThunk<void, UpdateItemProps, { rejectValue:
     'item/updateItem',
     async ({ formData, itemId, userId }, { rejectWithValue }) => {
         try {
-            formData.append('itemId', itemId.toString());
             formData.append('userId', userId.toString());
             await $api.put(`/items/update/${itemId}`, formData, {
                 headers: {
