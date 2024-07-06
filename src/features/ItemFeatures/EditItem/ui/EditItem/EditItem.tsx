@@ -142,6 +142,7 @@ export const EditItem = memo(({ className }: EditItemProps) => {
                             type="file"
                             onChange={(event) => handlePhotoChange(idx, event)}
                             ref={el => photoInputRefs.current[idx] = el as HTMLInputElement}
+                            required
                         />
                         <Button type="button" disabled={editItemForm.isLoading} onClick={() => removePhoto(idx)}>Удалить фото</Button>
                     </div>
