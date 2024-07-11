@@ -1,19 +1,93 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Profile, ProfileSchema } from '../types/profile';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Profile, ProfileSchema } from "../types/Profile";
+import { getProfile } from "../services/getProfile";
+import { updateProfile } from "../services/editProfile";
 
 const initialState: ProfileSchema = {
-    readonly: true,
+    user: {
+        username: '',
+        email: '',
+        firstname: '',
+        lastname: '',
+        age: null,
+        avatar: null,
+    },
     isLoading: false,
-    error: undefined,
-    data: undefined,
+    error: null,
 };
 
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,
-    reducers: {},
-});
+    reducers: {
+        setProfile: (state, action: PayloadAction<Profile>) => {
+            state.user = action.payload;
+        },
+        setUsername: (state, action: PayloadAction<string>) => {
+            state.user.username = action.payload;
+        },
+        setEmail: (state, action: PayloadAction<string>) => {
+            state.user.email = action.payload;
+        },
+        setFirstname: (state, action: PayloadAction<string>) => {
+            state.user.firstname = action.payload;
+        },
+        setLastname: (state, action: PayloadAction<string>) => {
+            state.user.lastname = action.payload;
+        },
+        setAge: (state, action: PayloadAction<number | null>) => {
+            state.user.age = action.payload;
+        },
+        setAvatar: (state, action: PayloadAction<File | null>) => {
+            state.user.avatar = action.payload;
+        },
+        clearError: (state) => {
+            state.error = null;
+        },
+        clearForm: (state) => {
+            state.user = initialState.user;
+            state.isLoading = false;
+            state.error = null;
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getProfile.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getProfile.fulfilled, (state, action: PayloadAction<Profile>) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.error = null;
+        });
+        builder.addCase(getProfile.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload ? action.payload.message : 'Unknown error';
+        });
+        builder.addCase(updateProfile.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(updateProfile.fulfilled, (state, action: PayloadAction<Profile>) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.error = null;
+        });
+        builder.addCase(updateProfile.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload ? action.payload.message : 'Unknown error';
+        });
+    },
+})
 
-export const { } = profileSlice.actions;
+export const {
+    setProfile,
+    setUsername,
+    setEmail,
+    setFirstname,
+    setLastname,
+    setAge,
+    setAvatar,
+    clearError,
+    clearForm,
+} = profileSlice.actions;
 
 export default profileSlice.reducer;

@@ -1,17 +1,14 @@
-import { City } from "shared/const/common";
-
 export interface Profile {
     username: string;
-    password: string;
-    first: string;
+    email: string;
+    firstname: string;
     lastname: string;
-    age: number;
-    avatar: string;
+    age: number | null;
+    avatar: File | null;
 }
 
 export interface ProfileSchema {
-    data?: Profile;
+    user: Profile;
     isLoading: boolean;
-    error?: string;
-    readonly: boolean;
+    error: string | null;
 }
