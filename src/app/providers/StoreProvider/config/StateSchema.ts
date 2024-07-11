@@ -13,7 +13,6 @@ export interface StateSchema {
     user: UserSchema;
     loginForm: LoginSchema;
     registrationForm: RegistrationSchema;
-    profile: ProfileSchema;
     item: ItemSchema;
     items: ItemsSchema;
     toggleFavorite: ToggleFavoriteState;
@@ -21,4 +20,5 @@ export interface StateSchema {
     modal: ModalSchema;
     deleteItemBtnModal: modalDeleteItemBtnSchema;
     editItem: EditItemSchema;
+    profile: ProfileSchema;
 }

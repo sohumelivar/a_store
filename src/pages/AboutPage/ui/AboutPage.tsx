@@ -19,12 +19,23 @@ const AboutPage = memo(() => {
         }
     }
 
+    const testProfile = async () => {
+        try {
+            const profile = await $api.get('/user/profile/1');
+            console.log('profile --- >>> ', profile);
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
     return (
         <div>
             {t('О нас')}
             {t('test')}
             <FavoriteBtn />
             <button onClick={usersApi} >users</button>
+            <button onClick={testProfile}> testProfile</button>
             {users && users.map((el) => (
                 <div key={el.id}>
                     <h1>{el.username}</h1>
