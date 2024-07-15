@@ -46,6 +46,7 @@ const editItemSlice = createSlice({
             state.itemId = initialState.itemId;
             state.isLoading = initialState.isLoading;
             state.error = initialState.error;
+            state.errorMessage = initialState.errorMessage;
         },
     },
     extraReducers: (builder) => {

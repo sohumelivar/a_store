@@ -3,7 +3,7 @@ import cls from './ProfilePage.module.scss';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
-import { getProfile, setAge, setAvatar, setEmail, setFirstname, setLastname, setUsername, updateProfile } from 'entities/Profile';
+import { getProfile, setAge, setAvatar, setEmail, setFirstname, setLastname, setUsername, updateProfile, clearForm } from 'entities/Profile';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'shared/ui/Buton/Button';
 
@@ -14,7 +14,7 @@ interface ProfilePageProps {
 
 const ProfilePage = memo(({className}: ProfilePageProps) => {
     const { authData } = useSelector((state: RootState) => state.user);
-    const { user, isLoading, error } = useSelector((state: RootState) => state.profile);
+    const { user, isLoading, error, errorMessage } = useSelector((state: RootState) => state.profile);
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
@@ -22,6 +22,10 @@ const ProfilePage = memo(({className}: ProfilePageProps) => {
     useEffect(() => {
       if (authData) {
         dispatch(getProfile(authData.id))
+      }
+
+      return () => {
+        dispatch(clearForm());
       }
     }, [dispatch, authData]);
 
@@ -71,13 +75,12 @@ const ProfilePage = memo(({className}: ProfilePageProps) => {
             dispatch(setAvatar(e.target.files[0]));
         }
     }, [dispatch]);
-    console.log('user avatar --- >>> ', user.avatar);
-    
 
     return (
       <div className={classNames(cls.ProfilePage, {}, [])}>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
       {!isLoading && !isEditing && (
           <div>
               <p>Username: {user.username}</p>
