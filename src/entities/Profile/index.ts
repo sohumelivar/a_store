@@ -1,4 +1,4 @@
-import { Profile, ProfileSchema } from './model/types/Profile';
+import { Profile, ProfileSchema } from './model/types/profile';
 import profileReducer, { setProfile } from './model/slice/profileSlice';
 import {
     setUsername,
