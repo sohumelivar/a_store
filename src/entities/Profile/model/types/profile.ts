@@ -11,4 +11,5 @@ export interface ProfileSchema {
     user: Profile;
     isLoading: boolean;
     error: string | null;
+    errorMessage?: string | null;
 }

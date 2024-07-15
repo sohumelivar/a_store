@@ -14,6 +14,7 @@ const initialState: ProfileSchema = {
     },
     isLoading: false,
     error: null,
+    errorMessage: null,
 };
 
 export const profileSlice = createSlice({
@@ -46,8 +47,9 @@ export const profileSlice = createSlice({
         },
         clearForm: (state) => {
             state.user = initialState.user;
-            state.isLoading = false;
-            state.error = null;
+            state.isLoading = initialState.isLoading;
+            state.error = initialState.error;
+            state.errorMessage = initialState.errorMessage;
         },
     },
     extraReducers: (builder) => {
@@ -70,10 +72,12 @@ export const profileSlice = createSlice({
             state.user = action.payload;
             state.isLoading = false;
             state.error = null;
+            state.errorMessage = null;
         });
         builder.addCase(updateProfile.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload ? action.payload.message : 'Unknown error';
+            state.errorMessage = action.payload ? action.payload.errors : 'Unknown error';
         });
     },
 })

@@ -8,6 +8,7 @@ interface updateProfileProps {
 }
 
 interface updateProfileError {
+    errors?: string;
     message: string;
 }
 
@@ -15,7 +16,7 @@ export const updateProfile = createAsyncThunk<Profile, updateProfileProps, { rej
     'item/updateProfile',
     async ( { formData, userId }, { rejectWithValue, dispatch }) => {
         try {
-            const response = await $api.post(`/user/updateProfile/${userId}`, formData, {
+            const response = await $api.put(`/user/updateProfile/${userId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
