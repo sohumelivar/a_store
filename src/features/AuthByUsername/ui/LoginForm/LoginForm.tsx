@@ -9,7 +9,7 @@ import { setUsername, setPassword, setIsAuthModal } from 'features/AuthByUsernam
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { useNavigate } from 'react-router-dom';
-import { Input } from 'shared/ui/Input/Input';
+import { Input } from 'shared/ui/input/Input';
 
 interface LoginFormProps {
    className?: string;

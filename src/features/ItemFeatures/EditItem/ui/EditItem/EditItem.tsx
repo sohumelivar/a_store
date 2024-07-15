@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useRef, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useNavigate, useParams } from 'react-router-dom';
-import { setItemName, setCategory, setDescription, setPrice, setPhotos, clearForm } from '../../model/slice/editItemSlice';
+import { setItemName, setCategory, setDescription, setPrice, clearForm } from '../../model/slice/editItemSlice';
 import { Button } from 'shared/ui/Buton/Button';
 import { MAX_FILE_SIZE } from 'shared/const/otherVariables';
 import { v4 as uuidv4 } from 'uuid';
@@ -142,7 +142,6 @@ export const EditItem = memo(({ className }: EditItemProps) => {
                             type="file"
                             onChange={(event) => handlePhotoChange(idx, event)}
                             ref={el => photoInputRefs.current[idx] = el as HTMLInputElement}
-                            required
                         />
                         <Button type="button" disabled={editItemForm.isLoading} onClick={() => removePhoto(idx)}>Удалить фото</Button>
                     </div>
