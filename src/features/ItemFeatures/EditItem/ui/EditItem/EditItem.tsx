@@ -22,7 +22,9 @@ export const EditItem = memo(({ className }: EditItemProps) => {
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
     const [photos, setPhotosState] = useState<File[]>([]);
+    console.log("🚀 ~ EditItem ~ photos:", photos)
     const [existingPhotos, setExistingPhotos] = useState<string[]>([]);
+    console.log("🚀 ~ EditItem ~ existingPhotos:", existingPhotos)
     const [deletedPhotos, setDeletedPhotos] = useState<string[]>([]);
     const photoInputRefs = useRef<HTMLInputElement[]>([]);
     const [photoInputs, setPhotoInputs] = useState<string[]>([uuidv4()]);
