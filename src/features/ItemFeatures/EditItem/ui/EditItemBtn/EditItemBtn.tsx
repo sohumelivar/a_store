@@ -17,7 +17,9 @@ export const EditItemBtn = memo(({className, itemId}: EditBtnProps) => {
     const { authData } = useSelector((state: RootState) => state.user);
 
     const handleEditItem = useCallback(() => {
-        navigate(`/editItem/${itemId}/${authData.id}`);
+        if(authData) {
+            navigate(`/editItem/${itemId}/${authData.id}`);
+        }
     }, [navigate, itemId, authData?.id]);
 
     return (

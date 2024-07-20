@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { getProfile, setAge, setEmail, setFirstname, setLastname, setUsername, updateProfile, clearForm } from 'entities/Profile';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'shared/ui/Buton/Button';
+import { UserItemsBtn } from 'widgets/UserItems';
 
 
 interface ProfilePageProps {
@@ -91,6 +92,7 @@ const ProfilePage = memo(({className}: ProfilePageProps) => {
               <p>Age: {user.age}</p>
               {user.avatar && <img src={`http://localhost:5001/uploads/${(user.avatar).toString()}`} alt="Avatar" />}
               <Button onClick={handleEdit}>Изменить</Button>
+              <UserItemsBtn />
           </div>
       )}
       {!isLoading && isEditing && (
