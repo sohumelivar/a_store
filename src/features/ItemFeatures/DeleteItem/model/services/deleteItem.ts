@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "app/providers/StoreProvider";
 import { getItems } from "entities/Items";
 import { $api } from "shared/api/api";
+import { getUserItems } from "widgets/UserItems";
 
 export const deleteItem = createAsyncThunk(
     'item/deleteItem',
@@ -12,6 +13,7 @@ export const deleteItem = createAsyncThunk(
             const userId = JSON.parse(localStorage.getItem('user'));
             await $api.post('/items/deleteItem', {itemId, userId: userId.id});
             dispatch(getItems(currentPage));
+            dispatch(getUserItems({page:currentPage, userId: userId.id}))
         } catch (error: any) {
             if (error.response) {
                 return rejectWithValue(error.response.data);
