@@ -1,38 +1,44 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getItemsErrors, ItemsSchema } from "../types/items";
-import { getItems } from "../services/getItems";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getUserItems } from "../services/getUserItems";
+import { UserItemsSchema, getUserItemsError } from "../types/userItems";
+import { Item } from "entities/Item";
 import { toggleFavorite } from "widgets/ToggleFavorite";
 
-const initialState: ItemsSchema = {
+const initialState: UserItemsSchema = {
     items: [],
     currentPage: 1,
     totalPages: 1,
     isLoading: false,
     error: null,
-};
+}
 
-const itemsSlice = createSlice({
-    name: 'items',
+export const userItemsSlice = createSlice({
+    name: 'userItems',
     initialState,
     reducers: {
+        setUserItems: (state, action: PayloadAction<Item[]>) => {
+            state.items = action.payload;
+        },
         setPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload;
         },
-        setItems: (state, action: PayloadAction<[]>) => {
-            state.items = action.payload;
+        clearUserItems: (state) => {
+            state.items = initialState.items;
+            state.isLoading = initialState.isLoading;
+            state.error = initialState.error;
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getItems.pending, (state) => {
+        builder.addCase(getUserItems.pending, (state) => {
             state.isLoading = true;
             state.error = null;
         });
-        builder.addCase(getItems.fulfilled, (state, action) => {
+        builder.addCase(getUserItems.fulfilled, (state, action) => {
             state.isLoading = false;
             state.items = action.payload.items;
             state.totalPages = action.payload.totalPages;
         });
-        builder.addCase(getItems.rejected, (state, action: PayloadAction<getItemsErrors>) => {
+        builder.addCase(getUserItems.rejected, (state, action: PayloadAction<getUserItemsError>) => {
             state.isLoading = false;
             state.error = action.payload;
         });
@@ -44,8 +50,7 @@ const itemsSlice = createSlice({
             }
         });
     },
-});
+})
 
-export const { setPage, setItems } = itemsSlice.actions;
-
-export default itemsSlice.reducer;
+export const { setUserItems, setPage, clearUserItems } = userItemsSlice.actions;
+export default userItemsSlice.reducer;

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { $api } from "shared/api/api";
-import { Profile } from "../types/Profile";
+import { Profile } from "../types/profile";
 
 interface updateProfileProps {
     formData: FormData;

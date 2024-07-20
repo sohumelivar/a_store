@@ -12,7 +12,7 @@ import { EditItemBtn } from 'features/ItemFeatures/EditItem';
 
 interface ItemListProps {
     items: Item[];
-    error: getItemsErrors | null;
+    error?: getItemsErrors | null;
     className?: string;
 }
 

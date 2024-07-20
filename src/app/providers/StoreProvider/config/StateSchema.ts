@@ -8,6 +8,7 @@ import { modalDeleteItemBtnSchema } from "features/ItemFeatures/DeleteItem";
 import { EditItemSchema } from "features/ItemFeatures/EditItem";
 import { RegistrationSchema } from "features/Registration";
 import { ToggleFavoriteState } from "widgets/ToggleFavorite";
+import { UserItemsSchema } from "widgets/UserItems";
 
 export interface StateSchema {
     user: UserSchema;
@@ -21,4 +22,5 @@ export interface StateSchema {
     deleteItemBtnModal: modalDeleteItemBtnSchema;
     editItem: EditItemSchema;
     profile: ProfileSchema;
+    userItems: UserItemsSchema;
 }

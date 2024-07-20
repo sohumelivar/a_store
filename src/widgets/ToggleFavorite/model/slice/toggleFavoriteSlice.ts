@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toggleFavorite } from '../services/toggleFavorite';
-import { Item } from 'entities/Item';
 import { ToggleFavoriteState } from '../types/toggleFavoriteSchema';
 
 const initialState: ToggleFavoriteState = {

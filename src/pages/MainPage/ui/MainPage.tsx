@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItems, setPage } from 'entities/Items';
 import { ItemList } from 'shared/ui/ItemList/ItemList';
 import { Pagination } from 'shared/ui/Pagination/Pagination';
+import { Loader } from 'shared/ui/Loader/Loader';
 
 interface MainPageProps {
    className?: string;
@@ -25,24 +26,22 @@ const MainPage = memo(({className}: MainPageProps) => {
       if (page >= 1 && page <= totalPages) {
           dispatch(setPage(page));
       }
-  };
-
-  const btnHandle = async () => {
-    console.log('tet');
-    
-    dispatch(getItems(currentPage));
-  }
+    };
 
     return (
       <div className={classNames(cls.MainPage, {}, [className])}>
-          <ItemList items={items} error={error} />
+          {isLoading ? 
+            <Loader /> 
+            :
+            <ItemList items={items} error={error} />
+          }
           {items.length > 0 && (
                 <Pagination 
                     currentPage={currentPage} 
                     totalPages={totalPages} 
                     onPageChange={handlePageChange} 
                 />
-            )}
+          )}
       </div>
     )
 });

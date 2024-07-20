@@ -10,6 +10,7 @@ import { NotFoundPage } from "pages/NotFoundPage"
 import { ProfilePage } from "pages/ProfilePage"
 import { TestPage } from "pages/TestPage/TestPage"
 import { RouteProps } from "react-router-dom"
+import { UserItems } from "widgets/UserItems/ui/UserItems/UserItems"
 
 export enum AppRoutes {
     ALL = 'all',
@@ -20,6 +21,7 @@ export enum AppRoutes {
     ADD_ITEM = 'addItem',
     ITEM_PAGE = 'item_page',
     EDIT_ITEM_PAGE = 'edit_item_page',
+    USER_ITEMS_PAGE = 'user_items_page',
     //LAST
     NOT_FOUND = 'not_found',
 }
@@ -33,6 +35,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ADD_ITEM]: '/addItem',
     [AppRoutes.ITEM_PAGE]: '/itemPage/:id',
     [AppRoutes.EDIT_ITEM_PAGE]: '/editItem/:itemId/:userId',
+    [AppRoutes.USER_ITEMS_PAGE]: '/items/userItems/:userId',
     //LAST
     [AppRoutes.NOT_FOUND]: '*'
 }
@@ -69,6 +72,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.EDIT_ITEM_PAGE]: {
         path: RoutePath.edit_item_page,
         element: <ProtectedRoute><EditItem /></ProtectedRoute>
+    },
+    [AppRoutes.USER_ITEMS_PAGE]: {
+        path: RoutePath.user_items_page,
+        element: <ProtectedRoute><UserItems /></ProtectedRoute>
     },
     //LAST
     [AppRoutes.NOT_FOUND]: {

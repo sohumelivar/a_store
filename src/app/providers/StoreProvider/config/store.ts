@@ -10,6 +10,7 @@ import { toggleFavoriteReducer } from 'widgets/ToggleFavorite';
 import { deleteItemBtnModalReducer } from 'features/ItemFeatures/DeleteItem';
 import { editItemReducer } from 'features/ItemFeatures/EditItem';
 import { profileReducer } from 'entities/Profile';
+import { userItemsReducer } from 'widgets/UserItems';
 
 
 
@@ -26,6 +27,7 @@ export const store = configureStore<StateSchema>({
         deleteItemBtnModal: deleteItemBtnModalReducer,
         editItem: editItemReducer,
         profile: profileReducer,
+        userItems: userItemsReducer,
     },
     devTools: __IS_DEV__,
 });
