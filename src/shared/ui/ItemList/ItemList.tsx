@@ -10,6 +10,7 @@ import { RootState } from 'app/providers/StoreProvider';
 import { DeleteItemBtn, DeleteItemModal } from 'features/ItemFeatures/DeleteItem';
 import { EditItemBtn } from 'features/ItemFeatures/EditItem';
 import { useNavigate } from 'react-router-dom';
+import { UserAvatar } from '../UserAvatar/UserAvatar';
 
 interface ItemListProps {
     items: Item[];
@@ -39,6 +40,7 @@ export const ItemList = memo(({ items, error, className }: ItemListProps) => {
         <div className={classNames(cls.itemList)}>
             {items.map((item) => (
                 <div key={item.id} className={classNames(cls.item, {[cls.disabled]: isLoading}, [className])} onClick={() => selectItem(item.id)}>
+                    <UserAvatar user={item.user}/>
                     <ToggleFavorite item={item} />
                     <h3>{item.itemName}</h3>
                     <h3>{item.category}</h3>

@@ -10,6 +10,7 @@ import { ImageBlock, ImageSizeSchema } from 'shared/ui/ImageBlock';
 import { DeleteItemBtn, DeleteItemModal } from 'features/ItemFeatures/DeleteItem';
 import { EditItemBtn } from 'features/ItemFeatures/EditItem';
 import { ToggleFavorite } from 'widgets/ToggleFavorite';
+import { UserAvatar } from 'shared/ui/UserAvatar/UserAvatar';
 
 interface ItemPageProps {
    className?: string;
@@ -40,7 +41,10 @@ export const ItemPage = ({className}: ItemPageProps) => {
         <Loader /> 
         :
         <div>
-          <ToggleFavorite item={item} />
+          <div className={cls.wrapperFavoriteAvatar}>
+            {item.user ? <UserAvatar user={item.user}/> :  <Loader />}
+            <ToggleFavorite item={item} />
+          </div>
           <div>itemName: {item.itemName}</div>
           <div>category : {item.category}</div>
           <div>description : {item.description}</div>
