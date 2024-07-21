@@ -25,7 +25,7 @@ export const ToggleFavorite = memo(({ item, className }: ToggleFavoriteProps) =>
     }, [dispatch, authData, item.id]);
 
     return (
-        <div className={classNames(cls.FavoriteBtn, {[cls.active]: item.isFavorite}, [])}>
+        <div onClick={(e) => e.stopPropagation()} className={classNames(cls.FavoriteBtn, {[cls.active]: item.isFavorite}, [])}>
             <span onClick={handleToggleFavorite}>
                 {item.isFavorite ? '❤️' : '🤍'}
             </span>

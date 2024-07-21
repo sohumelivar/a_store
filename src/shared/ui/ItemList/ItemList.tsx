@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'app/providers/StoreProvider';
 import { DeleteItemBtn, DeleteItemModal } from 'features/ItemFeatures/DeleteItem';
 import { EditItemBtn } from 'features/ItemFeatures/EditItem';
+import { useNavigate } from 'react-router-dom';
 
 interface ItemListProps {
     items: Item[];
@@ -20,6 +21,7 @@ export const ItemList = memo(({ items, error, className }: ItemListProps) => {
 
     const { isLoading } = useSelector((state: RootState) => state.toggleFavorite);
     const { isDeleteModal } = useSelector((state: RootState) => state.deleteItemBtnModal);
+    const navigate = useNavigate();
 
     if (error) {
         return <p>Error: {error.toString()}</p>;
@@ -29,10 +31,14 @@ export const ItemList = memo(({ items, error, className }: ItemListProps) => {
         return <p>No items available.</p>;
     }
 
+    const selectItem = (itemId: number) => {
+        navigate(`/itemPage/${itemId}`);
+    }
+
     return (
         <div className={classNames(cls.itemList)}>
             {items.map((item) => (
-                <div key={item.id} className={classNames(cls.item, {[cls.disabled]: isLoading}, [className])}>
+                <div key={item.id} className={classNames(cls.item, {[cls.disabled]: isLoading}, [className])} onClick={() => selectItem(item.id)}>
                     <ToggleFavorite item={item} />
                     <h3>{item.itemName}</h3>
                     <h3>{item.category}</h3>

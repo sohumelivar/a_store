@@ -12,9 +12,10 @@
     width: calc(33.333% - 32px);
     /* 3 items per row with 16px gap */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .disabled {
     pointer-events: none;
-  }
+}
   

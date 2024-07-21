@@ -9,6 +9,7 @@ import { logoutUser } from 'entities/User';
 import { NavbarItemsList } from 'widgets/Navbar/model/items';
 import { NavbarItem } from '../NavbarItem/NavbarItem';
 import { AppLink } from 'shared/ui/AppLink/AppLink';
+import { setPage } from 'entities/Items';
 
 interface NavbarProps {
    className?: string;
@@ -33,6 +34,12 @@ export const Navbar = memo(({className}: NavbarProps) => {
     dispatch(setIsAuthModal(false));
   }, [isAuthModal, authData]);
 
+  const handleItemClick = (item: { text: string, path: string }) => {
+    if(item.path === '/') {
+      dispatch(setPage(1));
+    }
+  };
+
     return (
       <div className={classNames(cls.Navbar, {}, [className])}>
         <div className={cls.links}>
@@ -40,6 +47,7 @@ export const Navbar = memo(({className}: NavbarProps) => {
               <NavbarItem 
                 key={item.text}
                 item={item}
+                onClick={handleItemClick}
               />
           ))}
             {authData ? 

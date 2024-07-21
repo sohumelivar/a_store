@@ -2,8 +2,8 @@ import { memo, useCallback, useEffect } from "react";
 import cls from './EditItemBtn.module.scss';
 import { Button } from "shared/ui/Buton/Button";
 import { classNames } from "shared/lib/classNames/classNames";
-import { AppDispatch, RootState } from "app/providers/StoreProvider";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "app/providers/StoreProvider";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 interface EditBtnProps {
@@ -13,10 +13,10 @@ interface EditBtnProps {
 
 export const EditItemBtn = memo(({className, itemId}: EditBtnProps) => {
     const navigate = useNavigate();
-    const dispatch: AppDispatch = useDispatch();
     const { authData } = useSelector((state: RootState) => state.user);
 
-    const handleEditItem = useCallback(() => {
+    const handleEditItem = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
         if(authData) {
             navigate(`/editItem/${itemId}/${authData.id}`);
         }

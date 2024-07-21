@@ -33,7 +33,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.TEST]: '/test',
     [AppRoutes.REGISTRATION]: '/registration',
     [AppRoutes.ADD_ITEM]: '/addItem',
-    [AppRoutes.ITEM_PAGE]: '/itemPage/:id',
+    [AppRoutes.ITEM_PAGE]: '/itemPage/:itemId',
     [AppRoutes.EDIT_ITEM_PAGE]: '/editItem/:itemId/:userId',
     [AppRoutes.USER_ITEMS_PAGE]: '/items/userItems/:userId',
     //LAST

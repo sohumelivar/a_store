@@ -15,7 +15,8 @@ interface DeleteBtnProps {
 export const DeleteItemBtn = memo(({className, itemId}: DeleteBtnProps) => {
     const dispatch: AppDispatch = useDispatch();
     
-    const handleDeleteItemModal = useCallback(() => {
+    const handleDeleteItemModal = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
         dispatch(setItemId(itemId));
         dispatch(setIsDeleteModal(true));
     }, [dispatch]);

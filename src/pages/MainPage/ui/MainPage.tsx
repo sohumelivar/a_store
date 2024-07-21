@@ -17,7 +17,6 @@ const MainPage = memo(({className}: MainPageProps) => {
     const { items, currentPage, totalPages, isLoading, error } = useSelector((state: RootState) => state.items);
     const { authData } = useSelector((state: RootState) => state.user);
 
-
     useEffect(() => {
       dispatch(getItems(currentPage));
     }, [dispatch, currentPage, authData]);

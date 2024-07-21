@@ -29,7 +29,7 @@ export const ImageBlock = ({className, images, maxWidthHeight, imageHeight}: Ima
     };
 
     return (
-      <div className={classNames(cls.ImageBlockWrapper, {}, [cls[maxWidthHeight]])}>
+      <div onClick={(e) => e.stopPropagation()} className={classNames(cls.ImageBlockWrapper, {}, [cls[maxWidthHeight]])}>
         <img
             className={classNames(cls.imageBlock, {}, [cls[imageHeight]])}
             src={`http://localhost:5001/itemsPhotos/${images[currentIndex]}`}
