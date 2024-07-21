@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { setIsDeleteModal, setError } from '../../model/slice/deleteItemModalSlice';
 import { deleteItem } from '../../model/services/deleteItem';
-import { Item } from 'entities/Item';
+import { useNavigate } from 'react-router-dom';
 
 interface DeleteItemModalProps {
    className?: string;
@@ -19,6 +19,7 @@ interface DeleteItemModalProps {
 export const DeleteItemModal = ({className, isOpen, onClose}: DeleteItemModalProps) => {
   const { isDeleteModal, error, itemId } = useSelector((state: RootState) => state.deleteItemBtnModal);
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onCloseModal = useCallback(() => {
     dispatch(setIsDeleteModal(false));
@@ -28,7 +29,7 @@ export const DeleteItemModal = ({className, isOpen, onClose}: DeleteItemModalPro
   }, [isDeleteModal, error]);
 
   const onDeleteItem = useCallback(() => {
-    dispatch(deleteItem(itemId));
+    dispatch(deleteItem({itemId, navigate}));
   }, [dispatch, itemId]);
 
     return (

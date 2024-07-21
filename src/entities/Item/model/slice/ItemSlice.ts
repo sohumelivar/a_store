@@ -1,9 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Item, ItemSchema } from "../types/Item";
 import { getItem } from "../services/getItem";
+import { toggleFavorite } from "widgets/ToggleFavorite";
 
 const initialState: ItemSchema = {
-    item: null,
+    item: {
+        itemName: '',
+        category: '',
+        description: '',
+        price: null,
+        photos: [],
+        onEdit: false,
+        isFavorite: false,
+    },
     isLoading: false,
     error: null,
 };
@@ -14,6 +23,9 @@ export const itemSlice = createSlice({
     reducers: {
         setItem: (state, action: PayloadAction<Item>) => {
             state.item = action.payload;
+        },
+        clearItem: (state, action: PayloadAction<Item>) => {
+            state.item = initialState.item;
         },
     },
     extraReducers: (builder) => {
@@ -29,11 +41,15 @@ export const itemSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload ? action.payload.message : 'Unknown error';
         });
+        builder.addCase(toggleFavorite.fulfilled, (state, action: PayloadAction<number>) => {
+            state.item.isFavorite = !state.item.isFavorite;
+        });
     },
 })
 
 export const {
     setItem,
+    clearItem,
 } = itemSlice.actions;
 
 export default itemSlice.reducer;

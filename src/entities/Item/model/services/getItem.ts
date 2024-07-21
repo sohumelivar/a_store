@@ -16,7 +16,7 @@ export const getItem = createAsyncThunk<Item, getItemProps, { rejectValue: getIt
     async ({itemId, userId}, { rejectWithValue, dispatch }) => {
         try {
             if (userId) {
-                const response = await $api.get(`/items/getItem/${itemId}/${userId}`, {
+                const response = await $api.get(`/items/getItemAuth/${itemId}/${userId}`, {
                     params: {userId},
                 })
                 return response.data;
