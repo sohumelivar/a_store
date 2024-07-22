@@ -9,6 +9,7 @@ import { MainPage } from "pages/MainPage"
 import { NotFoundPage } from "pages/NotFoundPage"
 import { ProfilePage } from "pages/ProfilePage"
 import { TestPage } from "pages/TestPage/TestPage"
+import { ViewUserProfile } from "pages/ViewUserProfile"
 import { RouteProps } from "react-router-dom"
 import { UserItems } from "widgets/UserItems/ui/UserItems/UserItems"
 
@@ -22,6 +23,7 @@ export enum AppRoutes {
     ITEM_PAGE = 'item_page',
     EDIT_ITEM_PAGE = 'edit_item_page',
     USER_ITEMS_PAGE = 'user_items_page',
+    VIEW_USER_PROFILE = 'view_user_profile',
     //LAST
     NOT_FOUND = 'not_found',
 }
@@ -36,6 +38,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ITEM_PAGE]: '/itemPage/:itemId',
     [AppRoutes.EDIT_ITEM_PAGE]: '/editItem/:itemId/:userId',
     [AppRoutes.USER_ITEMS_PAGE]: '/items/userItems/:userId',
+    [AppRoutes.VIEW_USER_PROFILE]: '/viewProfile/:userId',
     //LAST
     [AppRoutes.NOT_FOUND]: '*'
 }
@@ -76,6 +79,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.USER_ITEMS_PAGE]: {
         path: RoutePath.user_items_page,
         element: <ProtectedRoute><UserItems /></ProtectedRoute>
+    },
+    [AppRoutes.VIEW_USER_PROFILE]: {
+        path: RoutePath.view_user_profile,
+        element: <ViewUserProfile />
     },
     //LAST
     [AppRoutes.NOT_FOUND]: {

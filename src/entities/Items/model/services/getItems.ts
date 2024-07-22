@@ -8,7 +8,6 @@ export const getItems = createAsyncThunk<ItemsResponse, number, { rejectValue: g
         try {
             const userData = localStorage.getItem('user');
             if (userData) {
-                const userId = JSON.parse(userData).id;
                 const response = await $api.get(`/items/itemsAuth?page=${page}`);
                 return response.data;
             }

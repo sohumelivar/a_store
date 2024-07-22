@@ -1,6 +1,7 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './UserAvatar.module.scss';
 import { User } from 'entities/Item';
+import { useNavigate } from 'react-router-dom';
 
 interface UserAvatarProps {
     className?: string;
@@ -8,9 +9,15 @@ interface UserAvatarProps {
 }
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({ user, className }) => {
+    const navigate = useNavigate();
+
+    const handleProfileUser = (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      navigate(`/viewProfile/${user.id}`);
+    }
 
     return (
-      <div className={classNames(cls.UserAvatar, {}, [cls[className]])}>
+      <div onClick={handleProfileUser} className={classNames(cls.UserAvatar, {}, [cls[className]])}>
         {user && user.avatar ? (
                 <img src={`http://localhost:5001/uploads/${(user.avatar).toString()}`} alt={`${user.username}'s avatar`} className={cls.avatar} />
             ) : (

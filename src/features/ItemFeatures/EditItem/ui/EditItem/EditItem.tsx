@@ -12,6 +12,7 @@ import { getItem } from 'entities/Item';
 import { ImageBlock, ImageSizeSchema } from 'shared/ui/ImageBlock';
 import { updateItem } from '../../model/services/updateItem';
 import { validateForm } from '../../lib/validateForm';
+import { BackBtn } from 'shared/ui/BackBtn/BackBtn';
 
 interface EditItemProps {
     className?: string;
@@ -123,6 +124,7 @@ export const EditItem = memo(({ className }: EditItemProps) => {
     return (
         <form onSubmit={handleSubmit} className={classNames(cls.EditItem, {}, [className])}>
             <div className={cls.inputsWrapper}>
+                <BackBtn />
                 <input onChange={onChangeItemName} name="itemName" value={editItemForm.itemName} type="text" placeholder="Введите название товара"  />
                 <input onChange={onChangeCategory} name="category" value={editItemForm.category} type="text" placeholder="Введите категорию" required />
                 <input onChange={onChangeDescription} name="description" value={editItemForm.description} type="text" placeholder="Введите описание товара" required />
