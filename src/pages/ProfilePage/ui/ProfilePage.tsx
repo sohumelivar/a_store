@@ -7,6 +7,7 @@ import { getProfile, setAge, setEmail, setFirstname, setLastname, setUsername, u
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'shared/ui/Buton/Button';
 import { UserItemsBtn } from 'widgets/UserItems';
+import { BackBtn } from 'shared/ui/BackBtn/BackBtn';
 
 
 interface ProfilePageProps {
@@ -80,6 +81,7 @@ const ProfilePage = memo(({className}: ProfilePageProps) => {
 
     return (
       <div className={classNames(cls.ProfilePage, {}, [])}>
+      <BackBtn />  
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {errorMessage && <p>{errorMessage}</p>}

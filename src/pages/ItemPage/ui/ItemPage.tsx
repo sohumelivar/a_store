@@ -1,6 +1,6 @@
 import {classNames} from 'shared/lib/classNames/classNames';
 import cls from './ItemPage.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import { DeleteItemBtn, DeleteItemModal } from 'features/ItemFeatures/DeleteItem
 import { EditItemBtn } from 'features/ItemFeatures/EditItem';
 import { ToggleFavorite } from 'widgets/ToggleFavorite';
 import { UserAvatar } from 'shared/ui/UserAvatar/UserAvatar';
+import { BackBtn } from 'shared/ui/BackBtn/BackBtn';
 
 interface ItemPageProps {
    className?: string;
@@ -41,6 +42,7 @@ export const ItemPage = ({className}: ItemPageProps) => {
         <Loader /> 
         :
         <div>
+          <BackBtn />
           <div className={cls.wrapperFavoriteAvatar}>
             {item.user ? <UserAvatar user={item.user}/> :  <Loader />}
             <ToggleFavorite item={item} />
