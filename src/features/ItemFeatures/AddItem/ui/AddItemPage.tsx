@@ -17,6 +17,7 @@ import { MAX_FILE_SIZE } from 'shared/const/otherVariables';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'shared/ui/Buton/Button';
 import { validateForm } from '../lib/validateForm';
+import { BackBtn } from 'shared/ui/BackBtn/BackBtn';
 
 interface AddItemPageProps {
     className?: string;
@@ -108,6 +109,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
     return (
         <form onSubmit={handleSubmit} className={classNames(cls.AddItemPage, {}, [className])}>
             <div className={cls.inputsWrapper}>
+                <BackBtn />
                 <input onChange={onChangeItemName} name="itemName" value={addItemForm.item.itemName} type="text" placeholder="Введите название товара" required/>
                 <input onChange={onChangeCategory} name="category" value={addItemForm.item.category} type="text" placeholder="Введите категорию" required/>
                 <input onChange={onChangeDescription} name="description" value={addItemForm.item.description} type="text" placeholder="Введите описание товара" required/>
