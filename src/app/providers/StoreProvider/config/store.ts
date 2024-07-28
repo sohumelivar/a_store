@@ -11,6 +11,8 @@ import { deleteItemBtnModalReducer } from 'features/ItemFeatures/DeleteItem';
 import { editItemReducer } from 'features/ItemFeatures/EditItem';
 import { profileReducer } from 'entities/Profile';
 import { userItemsReducer } from 'widgets/UserItems';
+import { viewUserProfileReducer } from 'entities/ViewUserProfile';
+import { viewUserItemsReducer } from 'entities/ViewUserItems';
 
 
 
@@ -28,6 +30,8 @@ export const store = configureStore<StateSchema>({
         editItem: editItemReducer,
         profile: profileReducer,
         userItems: userItemsReducer,
+        viewUserProfile: viewUserProfileReducer,
+        viewUserItems: viewUserItemsReducer,
     },
     devTools: __IS_DEV__,
 });

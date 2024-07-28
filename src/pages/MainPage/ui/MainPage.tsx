@@ -7,6 +7,7 @@ import { getItems, setPage } from 'entities/Items';
 import { ItemList } from 'shared/ui/ItemList/ItemList';
 import { Pagination } from 'shared/ui/Pagination/Pagination';
 import { Loader } from 'shared/ui/Loader/Loader';
+import { setClearViewUserPage } from 'entities/ViewUserItems';
 
 interface MainPageProps {
    className?: string;
@@ -19,6 +20,7 @@ const MainPage = memo(({className}: MainPageProps) => {
 
     useEffect(() => {
       dispatch(getItems(currentPage));
+      dispatch(setClearViewUserPage());
     }, [dispatch, currentPage, authData]);
 
     const handlePageChange = (page: number) => {

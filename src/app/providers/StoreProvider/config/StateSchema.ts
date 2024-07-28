@@ -2,6 +2,8 @@ import { ItemSchema } from "entities/Item";
 import { ItemsSchema } from "entities/Items";
 import { ProfileSchema } from "entities/Profile";
 import { UserSchema } from "entities/User";
+import { ViewUserItemsSchema } from "entities/ViewUserItems";
+import { ViewUserProfileSchema } from "entities/ViewUserProfile";
 import { LoginSchema, ModalSchema } from "features/AuthByUsername";
 import { AddItemSchema } from "features/ItemFeatures/AddItem";
 import { modalDeleteItemBtnSchema } from "features/ItemFeatures/DeleteItem";
@@ -23,4 +25,6 @@ export interface StateSchema {
     editItem: EditItemSchema;
     profile: ProfileSchema;
     userItems: UserItemsSchema;
+    viewUserProfile: ViewUserProfileSchema;
+    viewUserItems: ViewUserItemsSchema;
 }
