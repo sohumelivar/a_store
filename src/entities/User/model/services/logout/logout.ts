@@ -5,6 +5,7 @@ import { TOKEN_LOCAL_KEY, USER_LOCAL_KEY } from "shared/const/localstorage";
 import { setAuthData } from "../../slice/userSlice";
 import { RootState } from "app/providers/StoreProvider";
 import { setClearViewUserItems } from "entities/ViewUserItems";
+import { clearFavoritesState } from "entities/Favorites";
 
 export const logoutUser = createAsyncThunk(
     'user/logout',
@@ -20,6 +21,7 @@ export const logoutUser = createAsyncThunk(
             dispatch(getItems(1));
             dispatch(setPage(1));
             dispatch(setClearViewUserItems());
+            dispatch(clearFavoritesState());
         } catch (error: any) {
             if (error.response) {
                 return rejectWithValue(error.response.data);

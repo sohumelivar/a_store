@@ -13,6 +13,7 @@ import { profileReducer } from 'entities/Profile';
 import { userItemsReducer } from 'widgets/UserItems';
 import { viewUserProfileReducer } from 'entities/ViewUserProfile';
 import { viewUserItemsReducer } from 'entities/ViewUserItems';
+import { favoritesReducer } from 'entities/Favorites';
 
 
 
@@ -32,6 +33,7 @@ export const store = configureStore<StateSchema>({
         userItems: userItemsReducer,
         viewUserProfile: viewUserProfileReducer,
         viewUserItems: viewUserItemsReducer,
+        favorites: favoritesReducer,
     },
     devTools: __IS_DEV__,
 });
