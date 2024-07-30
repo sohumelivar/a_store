@@ -1,3 +1,4 @@
+import { FavoritesSchema } from "entities/Favorites";
 import { ItemSchema } from "entities/Item";
 import { ItemsSchema } from "entities/Items";
 import { ProfileSchema } from "entities/Profile";
@@ -27,4 +28,5 @@ export interface StateSchema {
     userItems: UserItemsSchema;
     viewUserProfile: ViewUserProfileSchema;
     viewUserItems: ViewUserItemsSchema;
+    favorites: FavoritesSchema;
 }

@@ -4,6 +4,7 @@ import { AddItemPage } from "features/ItemFeatures/AddItem"
 import { EditItem } from "features/ItemFeatures/EditItem"
 import { RegistrationPage } from "features/Registration"
 import { AboutPage } from "pages/AboutPage"
+import { FavoritesPage } from "pages/FavoritesPage/FavoritesPage"
 import { ItemPage } from "pages/ItemPage/ui/ItemPage"
 import { MainPage } from "pages/MainPage"
 import { NotFoundPage } from "pages/NotFoundPage"
@@ -50,7 +51,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.FAVORITES]: {
         path: RoutePath.favorites,
-        element: <AboutPage />
+        element: <ProtectedRoute><FavoritesPage /></ProtectedRoute> 
     },
     [AppRoutes.PROFILE]: {
         path: RoutePath.profile,
