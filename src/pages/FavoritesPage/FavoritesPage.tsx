@@ -24,6 +24,7 @@ export const FavoritesPage = ({className}: FavoritesPageProps) => {
 
     useEffect(() => {
         if (!isLoading && favorites.length === 0 && currentPage > 1) {
+            console.log("🚀 ~ useEffect ~ currentPage:", currentPage)
             dispatch(setPage(currentPage - 1));
         }
     }, [favorites, isLoading, currentPage, dispatch]);
