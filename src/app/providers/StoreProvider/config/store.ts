@@ -14,6 +14,7 @@ import { userItemsReducer } from 'widgets/UserItems';
 import { viewUserProfileReducer } from 'entities/ViewUserProfile';
 import { viewUserItemsReducer } from 'entities/ViewUserItems';
 import { favoritesReducer } from 'entities/Favorites';
+import { categoriesReducer } from 'entities/Categories';
 
 
 
@@ -34,6 +35,7 @@ export const store = configureStore<StateSchema>({
         viewUserProfile: viewUserProfileReducer,
         viewUserItems: viewUserItemsReducer,
         favorites: favoritesReducer,
+        categories: categoriesReducer,
     },
     devTools: __IS_DEV__,
 });

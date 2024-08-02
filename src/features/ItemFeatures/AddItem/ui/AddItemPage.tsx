@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'shared/ui/Buton/Button';
 import { validateForm } from '../lib/validateForm';
 import { BackBtn } from 'shared/ui/BackBtn/BackBtn';
+import { getCategories } from 'entities/Categories';
 
 interface AddItemPageProps {
     className?: string;
@@ -33,6 +34,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     useEffect(() => {
+        dispatch(getCategories());
         return () => {
             dispatch(resetForm());
         };
