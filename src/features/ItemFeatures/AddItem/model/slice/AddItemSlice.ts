@@ -1,11 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AddItemSchema } from "../types/AddItemSchema";
 import { addItem } from "../services/addItem";
+import { Category } from "entities/Categories";
 
 const initialState: AddItemSchema = {
     item: {
         itemName: '',
-        category: '',
+        category: {
+            name: ''
+        },
         description: '',
         price: null,
         onEdit: false,
@@ -23,7 +26,7 @@ export const addItemSlice = createSlice({
         setItemName: (state, action: PayloadAction<string>) => {
             state.item.itemName = action.payload;
         },
-        setCategory: (state, action: PayloadAction<string>) => {
+        setCategory: (state, action: PayloadAction<Category>) => {
             state.item.category = action.payload;
         },
         setDescription: (state, action: PayloadAction<string>) => {
@@ -54,7 +57,7 @@ export const addItemSlice = createSlice({
         });
         builder.addCase(addItem.fulfilled, (state) => {
             state.item.itemName = '';
-            state.item.category = '';
+            state.item.category.name = '';
             state.item.description = '';
             state.item.price = null;
             state.error = null;

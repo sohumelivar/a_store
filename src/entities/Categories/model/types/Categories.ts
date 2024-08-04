@@ -1,10 +1,11 @@
 export interface Category {
-    id: number;
-    category: string;
+    id?: number;
+    name: string;
 }
 
 export interface CategoriesState {
     categories: Category[];
+    category: string | null;
     isLoadingCategories: boolean;
     errorCategories: string | null;
 }

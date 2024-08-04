@@ -1,6 +1,8 @@
+import { Category } from "entities/Categories";
+
 export interface EditItemSchema {
     itemName: string;
-    category: string;
+    category: Category;
     description: string;
     price: number | null;
     photos: string[];

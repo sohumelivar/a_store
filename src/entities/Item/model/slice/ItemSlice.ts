@@ -6,7 +6,9 @@ import { toggleFavorite } from "widgets/ToggleFavorite";
 const initialState: ItemSchema = {
     item: {
         itemName: '',
-        category: '',
+        category: {
+            name: ''
+        },
         description: '',
         price: null,
         photos: [],

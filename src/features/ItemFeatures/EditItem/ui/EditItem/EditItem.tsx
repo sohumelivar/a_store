@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useRef, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useNavigate, useParams } from 'react-router-dom';
-import { setItemName, setCategory, setDescription, setPrice, clearForm } from '../../model/slice/editItemSlice';
+import { setItemName, setDescription, setPrice, clearForm } from '../../model/slice/editItemSlice';
 import { Button } from 'shared/ui/Buton/Button';
 import { MAX_FILE_SIZE } from 'shared/const/otherVariables';
 import { v4 as uuidv4 } from 'uuid';
@@ -13,6 +13,8 @@ import { ImageBlock, ImageSizeSchema } from 'shared/ui/ImageBlock';
 import { updateItem } from '../../model/services/updateItem';
 import { validateForm } from '../../lib/validateForm';
 import { BackBtn } from 'shared/ui/BackBtn/BackBtn';
+import { getCategories, setCategory } from 'entities/Categories';
+import { SelectCategory } from 'entities/Categories/ui/SelectCategory';
 
 interface EditItemProps {
     className?: string;
@@ -29,11 +31,15 @@ export const EditItem = memo(({ className }: EditItemProps) => {
     const [photoInputs, setPhotoInputs] = useState<string[]>([uuidv4()]);
     const { itemId, userId } = useParams<{ itemId: string, userId: string }>();
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
+    const { category } = useSelector((state: RootState) => state.categories);
 
     useEffect(() => {
         dispatch(getItem({ itemId: Number(itemId), userId: Number(userId) }));
+        dispatch(getCategories());
+        
         return () => {
             dispatch(clearForm());
+            dispatch(setCategory(null));
         };
     }, [dispatch]);
 
@@ -46,10 +52,6 @@ export const EditItem = memo(({ className }: EditItemProps) => {
 
     const onChangeItemName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setItemName(event.target.value));
-    }, [dispatch]);
-
-    const onChangeCategory = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCategory(event.target.value));
     }, [dispatch]);
 
     const onChangeDescription = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,7 +108,7 @@ export const EditItem = memo(({ className }: EditItemProps) => {
                 });
             }
             if (editItemForm.itemName) formData.append('itemName', editItemForm.itemName);
-            if (editItemForm.category) formData.append('category', editItemForm.category);
+            if (category) formData.append('category', category);
             if (editItemForm.description) formData.append('description', editItemForm.description);
             if (editItemForm.price) formData.append('price', editItemForm.price.toString());
             formData.append('deletedPhotos', JSON.stringify(deletedPhotos));
@@ -119,14 +121,14 @@ export const EditItem = memo(({ className }: EditItemProps) => {
                 navigate('/');
             }
         }
-    }, [photos, editItemForm, deletedPhotos, dispatch, navigate]);
+    }, [photos, editItemForm, deletedPhotos, dispatch, navigate, category]);
 
     return (
         <form onSubmit={handleSubmit} className={classNames(cls.EditItem, {}, [className])}>
             <div className={cls.inputsWrapper}>
                 <BackBtn />
                 <input onChange={onChangeItemName} name="itemName" value={editItemForm.itemName} type="text" placeholder="Введите название товара"  />
-                <input onChange={onChangeCategory} name="category" value={editItemForm.category} type="text" placeholder="Введите категорию" required />
+                <SelectCategory />
                 <input onChange={onChangeDescription} name="description" value={editItemForm.description} type="text" placeholder="Введите описание товара" required />
                 <input onChange={onChangePrice} name="price" value={editItemForm.price || ''} type="number" placeholder="Введите цену товара" required />
                 <div className={cls.existingPhotos}>

@@ -5,7 +5,6 @@ import { AppDispatch, RootState } from 'app/providers/StoreProvider';
 import { useNavigate } from 'react-router-dom';
 import {
     setItemName,
-    setCategory,
     setDescription,
     setPrice,
     setError,
@@ -18,7 +17,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'shared/ui/Buton/Button';
 import { validateForm } from '../lib/validateForm';
 import { BackBtn } from 'shared/ui/BackBtn/BackBtn';
-import { getCategories } from 'entities/Categories';
+import { getCategories, setCategory } from 'entities/Categories';
+import { SelectCategory } from 'entities/Categories/ui/SelectCategory';
 
 interface AddItemPageProps {
     className?: string;
@@ -32,20 +32,18 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
     const photoInputRefs = useRef<HTMLInputElement[]>([]);
     const [photoInputs, setPhotoInputs] = useState<string[]>([uuidv4()]);
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
+    const { category } = useSelector((state: RootState) => state.categories);
 
     useEffect(() => {
         dispatch(getCategories());
         return () => {
             dispatch(resetForm());
+            dispatch(setCategory(null));
         };
     }, [dispatch]);
 
     const onChangeItemName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setItemName(event.target.value));
-    }, [dispatch]);
-
-    const onChangeCategory = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCategory(event.target.value));
     }, [dispatch]);
 
     const onChangeDescription = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +83,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
         setPhotoInputs(photoInputs.filter((_, idx) => idx !== index));
     }, [photos, photoInputs]);
 
+
     const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const errors = validateForm(addItemForm.item)
@@ -98,7 +97,7 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                 });
             }
             if (addItemForm.item.itemName) formData.append('itemName', addItemForm.item.itemName);
-            if (addItemForm.item.category) formData.append('category', addItemForm.item.category);
+            if (category) formData.append('category', category);
             if (addItemForm.item.description) formData.append('description', addItemForm.item.description);
             if (addItemForm.item.price) formData.append('price', addItemForm.item.price.toString());
             const resultAction = await dispatch(addItem(formData));
@@ -106,14 +105,14 @@ export const AddItemPage = ({ className }: AddItemPageProps) => {
                 navigate('/');
             }
         }
-    }, [navigate, dispatch, photos, addItemForm.item]);
+    }, [navigate, dispatch, photos, addItemForm.item, category]);
 
     return (
         <form onSubmit={handleSubmit} className={classNames(cls.AddItemPage, {}, [className])}>
             <div className={cls.inputsWrapper}>
                 <BackBtn />
                 <input onChange={onChangeItemName} name="itemName" value={addItemForm.item.itemName} type="text" placeholder="Введите название товара" required/>
-                <input onChange={onChangeCategory} name="category" value={addItemForm.item.category} type="text" placeholder="Введите категорию" required/>
+                <SelectCategory />
                 <input onChange={onChangeDescription} name="description" value={addItemForm.item.description} type="text" placeholder="Введите описание товара" required/>
                 <input onChange={onChangePrice} name="price" value={addItemForm.item.price || ''} type="number" placeholder="Введите цену товара" required/>
                 {photoInputs.map((inputIndex, idx) => (

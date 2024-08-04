@@ -43,7 +43,7 @@ export const ItemList = memo(({ items, error, className }: ItemListProps) => {
                     <UserAvatar user={item.user}/>
                     <ToggleFavorite item={item} />
                     <h3>{item.itemName}</h3>
-                    <h3>{item.category}</h3>
+                    <h3>{item.category?.name}</h3>
                     <h3>{item.description}</h3>
                     <h3>{item.price}</h3>
                     <ImageBlock images={item.photos} maxWidthHeight={ImageSizeSchema.maxWH_S} imageHeight={ImageSizeSchema.IH_S}/>
