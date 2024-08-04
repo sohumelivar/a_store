@@ -6,12 +6,17 @@ const initialState: CategoriesState = {
     categories: [],
     isLoadingCategories: false,
     errorCategories: null,
+    category: null,
 };
 
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
-    reducers: {},
+    reducers: {
+        setCategory: (state, action: PayloadAction<string>) => {
+            state.category = action.payload;
+        }, 
+    },
     extraReducers: (builder) => {
         builder.addCase(getCategories.pending, (state) => {
             state.isLoadingCategories = true;
@@ -28,4 +33,5 @@ const categoriesSlice = createSlice({
     },
 });
 
+export const { setCategory } = categoriesSlice.actions;
 export default categoriesSlice.reducer;

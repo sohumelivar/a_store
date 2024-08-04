@@ -1,7 +1,9 @@
+import { Category } from "entities/Categories";
+
 export interface Item {
     id?: number;
     itemName: string;
-    category?: string;
+    category?: Category;
     description?: string;
     price?: number;
     onEdit?: boolean;

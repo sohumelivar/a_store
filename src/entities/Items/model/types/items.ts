@@ -9,7 +9,7 @@ export interface ItemsSchema {
 }
 
 export interface ItemsResponse {
-    items: Item[]
+    items: Item[];
     totalPages: number;
 }
 

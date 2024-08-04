@@ -5,7 +5,9 @@ import { updateItem } from '../services/updateItem';
 
 const initialState: EditItemSchema = {
     itemName: '',
-    category: '',
+    category: {
+        name: ''
+    },
     description: '',
     price: null,
     photos: [],
@@ -23,7 +25,7 @@ const editItemSlice = createSlice({
             state.itemName = action.payload;
         },
         setCategory: (state, action: PayloadAction<string>) => {
-            state.category = action.payload;
+            state.category.name = action.payload;
         },
         setDescription: (state, action: PayloadAction<string>) => {
             state.description = action.payload;
@@ -57,7 +59,7 @@ const editItemSlice = createSlice({
         builder.addCase(getItem.fulfilled, (state, action) => {
             state.isLoading = false;
             state.itemName = action.payload.itemName;
-            state.category = action.payload.category;
+            state.category.name = action.payload.category.name;
             state.description = action.payload.description;
             state.price = action.payload.price;
             state.photos = action.payload.photos;

@@ -48,7 +48,9 @@ export const ItemPage = ({className}: ItemPageProps) => {
             <ToggleFavorite item={item} />
           </div>
           <div>itemName: {item.itemName}</div>
-          <div>category : {item.category}</div>
+          {item.category?.name && (
+          <div>category: {item.category?.name}</div>
+          )}
           <div>description : {item.description}</div>
           <div>price : {item.price}</div>
           <ImageBlock images={item.photos} maxWidthHeight={ImageSizeSchema.maxWH_L} imageHeight={ImageSizeSchema.IH_L}/>
