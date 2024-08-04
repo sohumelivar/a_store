@@ -13,31 +13,34 @@ interface SelectCategoryProps {
 export const SelectCategory = ({ className }: SelectCategoryProps) => {
     const dispatch: AppDispatch = useDispatch();
     const { categories, isLoadingCategories, errorCategories, category } = useSelector((state: RootState) => state.categories);
-    const addItemForm = useSelector((state: RootState) => state.addItem);
+    const { category: editCategory } = useSelector((state: RootState) => state.editItem);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const editItemForm = useSelector((state: RootState) => state.editItem);
     
     useEffect(() => {
-        if (!categories) {
+        if (!categories || categories.length === 0) {
             dispatch(getCategories());
         }
-        if (editItemForm.category.name) {
-            dispatch(setCategory(editItemForm.category.name));
-            setSelectedCategory(editItemForm.category.name);
+    }, [dispatch, categories]);
+
+    useEffect(() => {
+        if (editCategory && editCategory.name) {
+            setSelectedCategory(editCategory.name);
         }
-    }, [categories, editItemForm.category.name]);
-    
+    }, [editCategory]);
+
     const handleCategoryChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
         setSelectedCategory(selectedValue);
         const selectedCategory = categories.find(cat => cat.name === selectedValue);
-        dispatch(setCategory(selectedCategory?.name));
-    }, [dispatch, addItemForm.error]);
+        if (selectedCategory) {
+            dispatch(setCategory(selectedCategory.name));
+        }
+    }, [dispatch, categories]);
 
     return (
         <div className={classNames(cls.SelectCategory, {}, [className])}>
             {!isLoadingCategories && !errorCategories && (
-                <select value={selectedCategory || '' || editItemForm?.category?.name} onChange={handleCategoryChange}>
+                <select value={selectedCategory || ''} onChange={handleCategoryChange}>
                     <option value="" disabled>Выберите категорию</option>
                     {categories.map((category) => (
                         <option key={category.id} value={category.name}>{category.name}</option>
@@ -47,4 +50,3 @@ export const SelectCategory = ({ className }: SelectCategoryProps) => {
         </div>
     );
 };
-

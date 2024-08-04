@@ -47,6 +47,7 @@ export const EditItem = memo(({ className }: EditItemProps) => {
         if (editItemForm.photos.length > 0) {
             setExistingPhotos(editItemForm.photos);
             setPhotoInputs([uuidv4()]);
+            dispatch(setCategory(editItemForm.category.name));
         }
     }, [editItemForm.photos]);
 
